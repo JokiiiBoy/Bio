@@ -1,5 +1,4 @@
-# 🌐 JokiiiBoy — Personal Website
-
+# 🌐 JokiiiBoy's Space
 This is my **first personal website built in this style**.
 
 The goal of this project is simple:  
