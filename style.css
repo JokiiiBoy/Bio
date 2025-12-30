@@ -185,3 +185,39 @@ ul.main-menu li a.active {
 .show {
   display:block;
 }
+html { background: transparent !important; }
+
+body{
+  position: relative;
+  background: transparent !important;
+  overflow-x: hidden;
+}
+
+/* Animated background */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -15%;
+  z-index: -1;
+
+  background: url(background.jpg) center / cover no-repeat;
+  transform: translate3d(0,0,0) scale(1.03);
+  animation: bgDrift 50s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Dark overlay for readability */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: rgba(0,0,0,.35);
+}
+
+@keyframes bgDrift{
+  0%   { transform: translate3d(0,0,0) scale(1.03); }
+  50%  { transform: translate3d(-2%, -1%, 0) scale(1.05); }
+  100% { transform: translate3d(2%, 1%, 0) scale(1.07); }
+}
