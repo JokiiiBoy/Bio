@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JokiiiBoy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="JokiiiBoy – personal link hub & portfolio">
+  <meta name="author" content="JokiiiBoy">
+
+  <link rel="icon" href="favicon.png">
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="badge">
+      <span class="dot"></span>
+      JokiiiBoy’s Space
+    </div>
+
+    <div class="mini-nav">
+      <a href="#links" class="chip">Links</a>
+      <a href="#about" class="chip">About</a>
+      <a href="#highlights" class="chip">Highlights</a>
+      <a href="#projects" class="chip">Projects</a>
+      <a href="#setup" class="chip">Setup</a>
+      <a href="#contact" class="chip">Contact</a>
+    </div>
+  </div>
+
+  <!-- MAIN CARD -->
+  <div class="shell" id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="profile">
+        <div class="avatar">JB</div>
+        <div class="name">
+          <h1>JokiiiBoy</h1>
+          <p>Germany • GMT+1 • EN / DE</p>
+        </div>
+      </div>
+
+      <p class="bio">
+        Personal link hub & portfolio.<br>
+        Clean UI, gaming vibes, cozy aesthetics.<br>
+        <strong>I’m a femboy &lt;3</strong>
+      </p>
+
+      <div class="pills">
+        <span class="pill">UI / HUD</span>
+        <span class="pill">Game Dev</span>
+        <span class="pill">Linux</span>
+        <span class="pill">Purple / Blue</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LINKS -->
+    <section class="links" id="links">
+
+      <a class="link" href="https://github.com/JokiiiBoy" target="_blank">
+        <div class="l-left">
+          <div class="icon">⌂</div>
+          <div class="l-text">
+            <strong>GitHub</strong>
+            <span>github.com/JokiiiBoy</span>
+          </div>
+        </div>
+        <div class="arrow">↗</div>
+      </a>
+
+      <a class="link" href="https://www.youtube.com/@JokiiiiBoy" target="_blank">
+        <div class="l-left">
+          <div class="icon">▶</div>
+          <div class="l-text">
+            <strong>YouTube</strong>
+            <span>@JokiiiiBoy</span>
+          </div>
+        </div>
+        <div class="arrow">↗</div>
+      </a>
+
+      <a class="link" href="https://steamcommunity.com/id/jokiiiiboy/" target="_blank">
+        <div class="l-left">
+          <div class="icon">✦</div>
+          <div class="l-text">
+            <strong>Steam</strong>
+            <span>steamcommunity.com/id/jokiiiiboy</span>
+          </div>
+        </div>
+        <div class="arrow">↗</div>
+      </a>
+
+      <button class="link btnlike" id="copyDiscord">
+        <div class="l-left">
+          <div class="icon">⎘</div>
+          <div class="l-text">
+            <strong>Copy Discord</strong>
+            <span>jokiiiiboy</span>
+          </div>
+        </div>
+        <div class="arrow" id="copyState">Copy</div>
+      </button>
+
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TOGGLES -->
+    <div class="toggleRow">
+      <button class="tbtn active" data-toggle="aboutGrid">About</button>
+      <button class="tbtn active" data-toggle="highlightsGrid">Highlights</button>
+      <button class="tbtn active" data-toggle="projectsGrid">Projects</button>
+      <button class="tbtn active" data-toggle="setupGrid">Setup</button>
+      <button class="tbtn active" data-toggle="contactGrid">Contact</button>
+    </div>
+
+    <!-- YT MUSIC -->
+    <section class="nowplaying">
+      <div class="np-card">
+        <div class="np-left">
+          <div class="np-cover"></div>
+          <div class="np-text">
+            <strong>YT Music</strong>
+            <span>Currently listening (placeholder)</span>
+          </div>
+        </div>
+        <div class="np-right">
+          <span class="np-pill">cozy</span>
+          <span class="np-pill">vibes</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- MORE -->
+    <section class="more">
+
+      <!-- ABOUT -->
+      <div class="section-title" id="about">
+        <h2>About</h2>
+        <p>Who I am</p>
+      </div>
+
+      <div class="grid" id="aboutGrid">
+        <div class="card">
+          <h3>Me</h3>
+          <p>
+            I like building digital projects, experimenting with UI,
+            and creating cozy gaming-style interfaces.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Skills</h3>
+
+          <div class="skill">
+            <div class="skill-top"><span>UI / HUD</span><span>85%</span></div>
+            <div class="bar"><div style="--w:85%"></div></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-top"><span>Godot</span><span>70%</span></div>
+            <div class="bar"><div style="--w:70%"></div></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-top"><span>Linux</span><span>80%</span></div>
+            <div class="bar"><div style="--w:80%"></div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- HIGHLIGHTS -->
+      <div class="section-title" id="highlights">
+        <h2>Highlights</h2>
+        <p>Main focus</p>
+      </div>
+
+      <div class="grid" id="highlightsGrid">
+        <div class="card">
+          <h3>Clean UI</h3>
+          <p>HUDs, hotbars, orbs, readable layouts.</p>
+        </div>
+        <div class="card">
+          <h3>Modern Aesthetic</h3>
+          <p>Minimal, terminal-inspired, purple-blue vibes.</p>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="section-title" id="projects">
+        <h2>Projects</h2>
+        <p>What I build</p>
+      </div>
+
+      <div class="grid" id="projectsGrid">
+        <div class="card">
+          <h3>Riftlight</h3>
+          <p>Game project focused on HUD & UI systems.</p>
+        </div>
+        <div class="card">
+          <h3>ZeroBay</h3>
+          <p>Marketplace concept with dark aesthetics.</p>
+        </div>
+        <div class="card">
+          <h3>Minecraft Tools</h3>
+          <p>Maps, scanners, HUD experiments.</p>
+        </div>
+        <div class="card">
+          <h3>Terminal Themes</h3>
+          <p>neofetch, configs, visual structure.</p>
+        </div>
+      </div>
+
+      <!-- SETUP -->
+      <div class="section-title" id="setup">
+        <h2>Setup</h2>
+        <p>My environment</p>
+      </div>
+
+      <div class="grid" id="setupGrid">
+        <div class="card">
+          <h3>PC</h3>
+          <p>Linux (KDE Neon), VS Code, Godot</p>
+        </div>
+        <div class="card">
+          <h3>Vibe</h3>
+          <p>Purple / Blue lighting, cozy gaming corner.</p>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="section-title" id="contact">
+        <h2>Contact</h2>
+        <p>Reach me</p>
+      </div>
+
+      <div class="grid" id="contactGrid">
+        <div class="card">
+          <h3>Discord</h3>
+          <p>jokiiiiboy</p>
+        </div>
+        <div class="card">
+          <h3>FAQ</h3>
+          <p>
+            <strong>Collabs?</strong><br>
+            Yes, just DM me on Discord.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="foot">
+      <span>© <span id="year"></span> JokiiiBoy</span>
+      <a href="#top" class="chip">Back to top ↑</a>
+    </footer>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
