@@ -12,9 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* =========================================================
-       ROOT VARIABLES
-       ========================================================= */
     :root{
       --bg0:#050612;
       --bg1:#070816;
@@ -24,89 +21,140 @@
 
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
-      --faint: rgba(255,255,255,.55);
 
       --line: rgba(255,255,255,.12);
 
-      --accent1: #a855f7; /* purple */
-      --accent2: #38bdf8; /* blue */
+      --accent1: #a855f7;
+      --accent2: #38bdf8;
 
       --shadow: 0 18px 60px rgba(0,0,0,.55);
-
-      --radius-sm: 12px;
       --radius: 18px;
       --radius-lg: 28px;
 
       --max-width: 980px;
     }
 
-    /* =========================================================
-       RESET
-       ========================================================= */
-    *,
-    *::before,
-    *::after{ box-sizing:border-box; }
-
-    html,body{ margin:0; padding:0; height:100%; }
-
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; padding:0; }
     body{
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color: var(--text);
       background: var(--bg1);
       overflow-x: hidden;
     }
+    a{ color: inherit; text-decoration:none; }
+    .hidden{ display:none !important; }
 
-    /* =========================================================
-       ANIMATED BACKGROUND
-       ========================================================= */
-    body::before{
-      content:"";
+    /* =========================
+       BACKGROUND (FIXED)
+       - CSS animates ONLY filter/opacity, not transform
+       - JS drives transform via CSS variables
+       ========================= */
+
+    .bg-layer{
       position: fixed;
-      inset: -20%;
-      z-index: -2;
-
-      background:
-        radial-gradient(1200px 800px at 20% 10%, rgba(168,85,247,.22), transparent 72%),
-        radial-gradient(1200px 800px at 85% 20%, rgba(56,189,248,.18), transparent 74%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-
-      filter: blur(30px);
-      transform: translate3d(0,0,0) scale(1.02);
-      animation: bgFloat 55s ease-in-out infinite alternate;
-      will-change: transform;
+      inset:-30%;
+      pointer-events:none;
+      will-change: transform, filter, opacity;
+      transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(1.12);
     }
 
-    @keyframes bgFloat{
-      0%   { transform: translate3d(0,0,0) scale(1.02); }
-      50%  { transform: translate3d(-3%, -2%, 0) scale(1.05); }
-      100% { transform: translate3d(3%, 2%, 0) scale(1.08); }
+    /* deep layer */
+    #bg2{
+      z-index:-4;
+      background:
+        radial-gradient(900px 650px at 70% 75%, rgba(168,85,247,.18), transparent 70%),
+        radial-gradient(800px 600px at 18% 65%, rgba(56,189,248,.14), transparent 70%),
+        radial-gradient(900px 700px at 55% 15%, rgba(255,255,255,.06), transparent 70%),
+        linear-gradient(180deg, #040512, #060616 50%, #040512);
+      filter: blur(60px) saturate(115%);
+      opacity: 0.95;
+      animation: haze 14s ease-in-out infinite alternate;
+    }
+
+    /* main layer */
+    #bg1{
+      z-index:-3;
+      background:
+        radial-gradient(1200px 900px at 20% 12%, rgba(168,85,247,.26), transparent 72%),
+        radial-gradient(1200px 900px at 85% 18%, rgba(56,189,248,.22), transparent 74%),
+        radial-gradient(1100px 900px at 55% 85%, rgba(168,85,247,.12), transparent 78%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      filter: blur(34px) saturate(120%);
+      opacity: 0.95;
+      animation: hue 18s ease-in-out infinite alternate;
+    }
+
+    /* readability overlay */
+    .bg-overlay{
+      position: fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 600px at 50% 10%, rgba(255,255,255,.07), transparent 60%),
+        rgba(0,0,0,.30);
+    }
+
+    /* subtle noise */
+    .noise{
+      position: fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: .9;
+    }
+
+    /* extra animated “light sweep” so you DEFINITELY see motion */
+    .light-sweep{
+      position: fixed;
+      inset:-40%;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        conic-gradient(from 180deg at 50% 50%,
+          transparent 0deg,
+          rgba(56,189,248,.08) 60deg,
+          rgba(168,85,247,.08) 120deg,
+          transparent 180deg,
+          transparent 360deg);
+      filter: blur(40px);
+      animation: sweep 26s linear infinite;
+      opacity: .55;
+    }
+
+    @keyframes hue{
+      0%   { filter: blur(34px) saturate(115%) hue-rotate(0deg);   opacity: .92; }
+      50%  { filter: blur(38px) saturate(135%) hue-rotate(12deg);  opacity: .98; }
+      100% { filter: blur(36px) saturate(125%) hue-rotate(-10deg); opacity: .94; }
+    }
+    @keyframes haze{
+      0%   { filter: blur(58px) saturate(110%); opacity: .90; }
+      100% { filter: blur(68px) saturate(125%); opacity: .98; }
+    }
+    @keyframes sweep{
+      from { transform: rotate(0deg) scale(1.05); }
+      to   { transform: rotate(360deg) scale(1.05); }
     }
 
     @media (prefers-reduced-motion: reduce){
-      body::before{ animation:none; }
-      *{ scroll-behavior:auto !important; }
+      #bg1,#bg2,.light-sweep{ animation:none !important; }
     }
 
-    /* =========================================================
-       GLOBAL ELEMENTS
-       ========================================================= */
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: none; }
-    .hidden{ display:none !important; }
-
-    /* =========================================================
-       LAYOUT WRAPPER
-       ========================================================= */
+    /* =========================
+       LAYOUT
+       ========================= */
     .wrap{
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 18px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* =========================================================
-       TOP BAR
-       ========================================================= */
     .topbar{
       display:flex;
       align-items:center;
@@ -129,9 +177,7 @@
     }
 
     .dot{
-      width:9px;
-      height:9px;
-      border-radius:999px;
+      width:9px;height:9px;border-radius:999px;
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
       box-shadow: 0 0 18px rgba(56,189,248,.35);
     }
@@ -149,12 +195,8 @@
       color: var(--muted);
       border:1px solid var(--line);
       background: var(--panel);
-      transition: background .12s ease,
-                  border-color .12s ease,
-                  color .12s ease,
-                  transform .12s ease;
+      transition: background .12s ease, border-color .12s ease, color .12s ease, transform .12s ease;
     }
-
     .chip:hover{
       background: var(--panel-strong);
       border-color: rgba(255,255,255,.18);
@@ -162,9 +204,6 @@
       transform: translateY(-1px);
     }
 
-    /* =========================================================
-       MAIN SHELL
-       ========================================================= */
     .shell{
       border:1px solid var(--line);
       background: var(--panel);
@@ -174,41 +213,27 @@
       overflow:hidden;
     }
 
-    /* =========================================================
-       HERO
-       ========================================================= */
     .hero{
       padding:22px;
       position:relative;
     }
-
     .hero::before{
       content:"";
       position:absolute;
       inset:-2px;
       background:
-        radial-gradient(800px 400px at 15% 20%, rgba(168,85,247,.20), transparent 60%),
-        radial-gradient(800px 420px at 85% 25%, rgba(56,189,248,.16), transparent 62%);
+        radial-gradient(800px 400px at 15% 20%, rgba(168,85,247,.18), transparent 60%),
+        radial-gradient(800px 420px at 85% 25%, rgba(56,189,248,.14), transparent 62%);
       opacity:.9;
       pointer-events:none;
     }
-
     .hero > *{ position:relative; }
 
-    .profile{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
+    .profile{ display:flex; align-items:center; gap:14px; }
     .avatar{
-      width:54px;
-      height:54px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      letter-spacing:.5px;
+      width:54px;height:54px;border-radius:18px;
+      display:grid;place-items:center;
+      font-weight:900;letter-spacing:.5px;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
       box-shadow: 0 18px 46px rgba(168,85,247,.18);
       user-select:none;
@@ -225,12 +250,7 @@
       max-width: 72ch;
     }
 
-    .pills{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-
+    .pills{ display:flex; flex-wrap:wrap; gap:8px; }
     .pill{
       padding: 7px 10px;
       font-size:12px;
@@ -240,20 +260,13 @@
       color: var(--muted);
     }
 
-    /* =========================================================
-       DIVIDER
-       ========================================================= */
     .divider{ height:1px; background: var(--line); }
 
-    /* =========================================================
-       LINKS
-       ========================================================= */
     .links{
       padding:22px;
       display:grid;
       gap:10px;
     }
-
     .link{
       display:flex;
       align-items:center;
@@ -263,17 +276,13 @@
       border-radius: var(--radius);
       border:1px solid var(--line);
       background: rgba(0,0,0,.18);
-      transition: transform .12s ease,
-                  background .12s ease,
-                  border-color .12s ease;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-
     .link:hover{
       transform: translateY(-1px);
       background: var(--panel-strong);
       border-color: rgba(255,255,255,.20);
     }
-
     button.link{
       width:100%;
       border:none;
@@ -282,42 +291,26 @@
       text-align:left;
       cursor:pointer;
     }
-
-    .l-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 0;
-    }
-
+    .l-left{ display:flex; align-items:center; gap:12px; min-width:0; }
     .icon{
-      width:34px;
-      height:34px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
       border:1px solid var(--line);
       background: var(--panel);
-      flex: 0 0 auto;
+      flex:0 0 auto;
     }
-
     .l-text{ min-width:0; }
     .l-text strong{
       display:block;
       font-size:13.5px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
     .l-text span{
       display:block;
       font-size:12px;
       color: var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
-
     .arrow{
       font-size:12px;
       color: var(--muted);
@@ -325,19 +318,15 @@
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      flex: 0 0 auto;
+      flex:0 0 auto;
     }
 
-    /* =========================================================
-       TOGGLES
-       ========================================================= */
     .toggleRow{
       padding:16px 22px;
       display:flex;
       flex-wrap:wrap;
       gap:8px;
     }
-
     .tbtn{
       padding:8px 10px;
       font-size:12px;
@@ -346,19 +335,13 @@
       background: var(--panel);
       color: var(--muted);
       cursor:pointer;
-      transition: background .12s ease,
-                  border-color .12s ease,
-                  color .12s ease,
-                  box-shadow .12s ease,
-                  transform .12s ease;
+      transition: background .12s ease, border-color .12s ease, color .12s ease, box-shadow .12s ease, transform .12s ease;
     }
-
     .tbtn:hover{
       background: var(--panel-strong);
       color: var(--text);
       transform: translateY(-1px);
     }
-
     .tbtn.active{
       background: rgba(56,189,248,.14);
       border-color: rgba(56,189,248,.45);
@@ -366,11 +349,7 @@
       box-shadow: 0 0 0 4px rgba(56,189,248,.10);
     }
 
-    /* =========================================================
-       YT MUSIC
-       ========================================================= */
     .nowplaying{ padding:16px 22px; }
-
     .np-card{
       display:flex;
       align-items:center;
@@ -381,36 +360,22 @@
       border:1px solid var(--line);
       background: rgba(0,0,0,.14);
     }
-
-    .np-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-
+    .np-left{ display:flex; align-items:center; gap:12px; min-width:0; }
     .np-cover{
-      width:38px;
-      height:38px;
-      border-radius:14px;
+      width:38px;height:38px;border-radius:14px;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
       border:1px solid var(--line);
-      flex: 0 0 auto;
+      flex:0 0 auto;
     }
-
     .np-text{ min-width:0; }
     .np-text strong{ display:block; font-size:13px; }
     .np-text span{
       display:block;
       font-size:12px;
       color: var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
-
     .np-right{ display:flex; gap:8px; flex:0 0 auto; }
-
     .np-pill{
       padding:6px 9px;
       font-size:11.5px;
@@ -420,48 +385,35 @@
       color: var(--muted);
     }
 
-    /* =========================================================
-       CONTENT SECTIONS
-       ========================================================= */
     .more{
       padding:22px;
       display:grid;
       gap:16px;
     }
-
     .section-title{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap: 12px;
+      gap:12px;
     }
-
     .section-title h2{ margin:0; font-size:14px; }
     .section-title p{ margin:0; font-size:12px; color: var(--muted); }
 
     .grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap:12px;
     }
-
     .card{
       padding:14px;
       border-radius: var(--radius);
       border:1px solid var(--line);
       background: var(--panel);
     }
-
     .card h3{ margin:0 0 6px; font-size:13px; }
     .card p{ margin:0; font-size:12.8px; line-height:1.6; color: var(--muted); }
 
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:10px;
-    }
-
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
     .tag{
       font-size:11.5px;
       padding:6px 9px;
@@ -471,18 +423,14 @@
       color: rgba(255,255,255,.62);
     }
 
-    /* =========================================================
-       SKILLS
-       ========================================================= */
     .skill{ margin-top:10px; }
     .skill-top{
       display:flex;
       justify-content:space-between;
-      gap: 10px;
+      gap:10px;
       font-size:12px;
       color: var(--muted);
     }
-
     .bar{
       margin-top:8px;
       height:10px;
@@ -491,16 +439,12 @@
       border:1px solid var(--line);
       overflow:hidden;
     }
-
     .bar > div{
       height:100%;
       width: var(--w, 60%);
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
     }
 
-    /* =========================================================
-       FOOTER
-       ========================================================= */
     .foot{
       padding:14px 22px;
       border-top:1px solid var(--line);
@@ -512,9 +456,6 @@
       color: var(--muted);
     }
 
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
     @media (max-width:720px){
       .grid{ grid-template-columns:1fr; }
       .topbar{ flex-direction:column; align-items:flex-start; }
@@ -523,6 +464,13 @@
 </head>
 
 <body>
+  <!-- Background layers -->
+  <div id="bg2" class="bg-layer"></div>
+  <div id="bg1" class="bg-layer"></div>
+  <div class="light-sweep"></div>
+  <div class="bg-overlay"></div>
+  <div class="noise"></div>
+
   <div class="wrap">
     <div class="topbar">
       <div class="badge"><span class="dot"></span> JokiiiBoy’s Space</div>
@@ -638,7 +586,6 @@
       <div class="divider"></div>
 
       <section class="more">
-        <!-- ABOUT -->
         <div class="section-title" id="about">
           <h2>About</h2>
           <p>A quick intro</p>
@@ -681,7 +628,6 @@
           </div>
         </div>
 
-        <!-- HIGHLIGHTS -->
         <div class="section-title" id="highlights">
           <h2>Highlights</h2>
           <p>The main things I’m known for</p>
@@ -711,7 +657,6 @@
           </div>
         </div>
 
-        <!-- PROJECTS -->
         <div class="section-title" id="projects">
           <h2>Projects</h2>
           <p>Things I build</p>
@@ -770,7 +715,6 @@
           </div>
         </div>
 
-        <!-- SETUP -->
         <div class="section-title" id="setup">
           <h2>Setup</h2>
           <p>My digital comfort zone</p>
@@ -804,7 +748,6 @@
           </div>
         </div>
 
-        <!-- CONTACT -->
         <div class="section-title" id="contact">
           <h2>Contact</h2>
           <p>The best way to reach me</p>
@@ -861,7 +804,7 @@
       });
     });
 
-    // Copy helper (works on HTTPS + fallback for file://)
+    // Copy helper (HTTPS + file:// fallback)
     function copyText(text) {
       if (navigator.clipboard && window.isSecureContext) {
         return navigator.clipboard.writeText(text);
@@ -908,7 +851,6 @@
       const el = document.getElementById(id);
       if (!el) return;
 
-      // initial state
       btn.classList.toggle("active", !el.classList.contains("hidden"));
 
       btn.addEventListener("click", () => {
@@ -917,7 +859,7 @@
       });
     });
 
-    // Optional: YT Music placeholder rotation (pure cosmetic)
+    // YT Music placeholder rotation (cosmetic)
     const ytStatus = document.getElementById("ytStatus");
     if (ytStatus) {
       const lines = [
@@ -930,6 +872,51 @@
         i = (i + 1) % lines.length;
         ytStatus.textContent = lines[i];
       }, 5000);
+    }
+
+    // =========================
+    // MOUSE REACTION (FIXED)
+    // Uses CSS vars instead of overwriting transform
+    // =========================
+    const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const bg1 = document.getElementById("bg1");
+    const bg2 = document.getElementById("bg2");
+
+    if (!prefersReduce && bg1 && bg2) {
+      let tx = 0, ty = 0;
+      let cx = 0, cy = 0;
+      const smooth = 0.10;
+
+      // how strong it moves (increase to feel it more)
+      const strength1 = 18; // px
+      const strength2 = 34; // px
+
+      function frame(){
+        cx += (tx - cx) * smooth;
+        cy += (ty - cy) * smooth;
+
+        // set vars on each layer
+        bg1.style.setProperty("--mx", `${cx * strength1}px`);
+        bg1.style.setProperty("--my", `${cy * strength1}px`);
+
+        bg2.style.setProperty("--mx", `${cx * strength2}px`);
+        bg2.style.setProperty("--my", `${cy * strength2}px`);
+
+        requestAnimationFrame(frame);
+      }
+
+      window.addEventListener("mousemove", (e) => {
+        const x = (e.clientX / window.innerWidth) * 2 - 1;  // -1..1
+        const y = (e.clientY / window.innerHeight) * 2 - 1; // -1..1
+        tx = x;
+        ty = y;
+      }, { passive: true });
+
+      window.addEventListener("mouseleave", () => {
+        tx = 0; ty = 0;
+      }, { passive: true });
+
+      requestAnimationFrame(frame);
     }
   </script>
 </body>
