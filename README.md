@@ -1,5 +1,5 @@
 # 🌐 JokiiiBoy's Space
-This is my **first personal website built in this style**.
+This is my **first website built in this style**.
 
 The goal of this project is simple:  
 to create a clean, cozy, and modern personal website that reflects **who I am**, **what I like**, and **what I build**.
@@ -11,10 +11,8 @@ to create a clean, cozy, and modern personal website that reflects **who I am**,
 This website is:
 - my **first step into this specific visual style**
 - focused on **simplicity**, **readability**, and **atmosphere**
-- inspired by **gaming aesthetics**, dark themes, and smooth UI vibes
 
-I wanted something that feels:
-- calm, not overwhelming  
+I wanted something that feels:  
 - modern, but not over-engineered  
 - personal, not corporate  
 
