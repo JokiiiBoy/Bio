@@ -3,80 +3,84 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-
-  <title>JokiiiBoy's Space</title>
-  <meta name="description" content="JokiiiBoy's Space — links, projects, and vibes." />
+  <title>JokiiiBoy</title>
+  <meta name="description" content="JokiiiBoy – personal link hub & portfolio" />
   <meta name="author" content="JokiiiBoy" />
-
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
+    /* =========================================================
+       ROOT VARIABLES
+       ========================================================= */
     :root{
       --bg0:#050612;
       --bg1:#070816;
+
       --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.10);
+      --panel-strong: rgba(255,255,255,.10);
+
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
       --faint: rgba(255,255,255,.55);
+
       --line: rgba(255,255,255,.12);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius: 22px;
 
       --accent1: #a855f7; /* purple */
       --accent2: #38bdf8; /* blue */
-      --accent3: #22c55e; /* green */
 
-      --max: 980px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+
+      --radius-sm: 12px;
+      --radius: 18px;
+      --radius-lg: 28px;
+
+      --max-width: 980px;
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height:100%; }
+    /* =========================================================
+       RESET
+       ========================================================= */
+    *,
+    *::before,
+    *::after{ box-sizing:border-box; }
+
+    html,body{ margin:0; padding:0; height:100%; }
+
     body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: var(--text);
       background: var(--bg1);
-      overflow-x:hidden;
+      overflow-x: hidden;
     }
 
-    /* ===== Animated background (no seams) ===== */
+    /* =========================================================
+       ANIMATED BACKGROUND
+       ========================================================= */
     body::before{
       content:"";
       position: fixed;
-      inset:-20%;
-      z-index:-2;
+      inset: -20%;
+      z-index: -2;
 
       background:
-        radial-gradient(1200px 800px at 18% 12%, rgba(168,85,247,.22), transparent 72%),
-        radial-gradient(1200px 800px at 85% 22%, rgba(56,189,248,.18), transparent 74%),
-        radial-gradient(1100px 900px at 40% 88%, rgba(34,197,94,.10), transparent 78%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 60%, #060716);
+        radial-gradient(1200px 800px at 20% 10%, rgba(168,85,247,.22), transparent 72%),
+        radial-gradient(1200px 800px at 85% 20%, rgba(56,189,248,.18), transparent 74%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
 
       filter: blur(30px);
       transform: translate3d(0,0,0) scale(1.02);
-      will-change: transform;
       animation: bgFloat 55s ease-in-out infinite alternate;
-    }
-
-    body::after{
-      content:"";
-      position: fixed;
-      inset:0;
-      z-index:-1;
-      pointer-events:none;
-      background:
-        radial-gradient(900px 600px at 50% 10%, rgba(255,255,255,.06), transparent 60%),
-        rgba(0,0,0,.28);
+      will-change: transform;
     }
 
     @keyframes bgFloat{
       0%   { transform: translate3d(0,0,0) scale(1.02); }
-      50%  { transform: translate3d(-3%, -1.5%, 0) scale(1.05); }
-      100% { transform: translate3d(3%, 1.5%, 0) scale(1.07); }
+      50%  { transform: translate3d(-3%, -2%, 0) scale(1.05); }
+      100% { transform: translate3d(3%, 2%, 0) scale(1.08); }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -84,22 +88,31 @@
       *{ scroll-behavior:auto !important; }
     }
 
+    /* =========================================================
+       GLOBAL ELEMENTS
+       ========================================================= */
     a{ color: inherit; text-decoration: none; }
     a:hover{ text-decoration: none; }
+    .hidden{ display:none !important; }
 
+    /* =========================================================
+       LAYOUT WRAPPER
+       ========================================================= */
     .wrap{
-      width: min(var(--max), calc(100% - 28px));
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: 18px 0 60px;
+      padding: 18px;
     }
 
-    /* ===== Top mini bar ===== */
+    /* =========================================================
+       TOP BAR
+       ========================================================= */
     .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
-      padding: 12px 0 14px;
+      gap:12px;
+      padding-bottom:14px;
     }
 
     .badge{
@@ -108,57 +121,64 @@
       gap:10px;
       padding: 9px 12px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size:12px;
       color: var(--muted);
-      font-size: 12px;
       backdrop-filter: blur(10px);
     }
 
     .dot{
-      width:9px; height:9px; border-radius: 999px;
+      width:9px;
+      height:9px;
+      border-radius:999px;
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
       box-shadow: 0 0 18px rgba(56,189,248,.35);
     }
 
     .mini-nav{
       display:flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
+      gap:8px;
+      flex-wrap:wrap;
     }
 
     .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
       padding: 8px 10px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      font-size:12px;
       color: var(--muted);
-      font-size: 12px;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      border:1px solid var(--line);
+      background: var(--panel);
+      transition: background .12s ease,
+                  border-color .12s ease,
+                  color .12s ease,
+                  transform .12s ease;
     }
+
     .chip:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.07);
+      background: var(--panel-strong);
       border-color: rgba(255,255,255,.18);
       color: var(--text);
+      transform: translateY(-1px);
     }
 
-    /* ===== Main card ===== */
+    /* =========================================================
+       MAIN SHELL
+       ========================================================= */
     .shell{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 28px;
+      border:1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      overflow:hidden;
       backdrop-filter: blur(14px);
+      overflow:hidden;
     }
 
+    /* =========================================================
+       HERO
+       ========================================================= */
     .hero{
-      padding: 22px;
+      padding:22px;
       position:relative;
     }
 
@@ -169,129 +189,129 @@
       background:
         radial-gradient(800px 400px at 15% 20%, rgba(168,85,247,.20), transparent 60%),
         radial-gradient(800px 420px at 85% 25%, rgba(56,189,248,.16), transparent 62%);
-      opacity: .9;
+      opacity:.9;
       pointer-events:none;
     }
+
     .hero > *{ position:relative; }
 
     .profile{
       display:flex;
       align-items:center;
-      gap: 14px;
-      margin-bottom: 14px;
+      gap:14px;
     }
 
     .avatar{
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(168,85,247,.95), rgba(56,189,248,.92));
+      width:54px;
+      height:54px;
+      border-radius:18px;
       display:grid;
       place-items:center;
-      font-weight: 900;
-      letter-spacing: .5px;
+      font-weight:900;
+      letter-spacing:.5px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
       box-shadow: 0 18px 46px rgba(168,85,247,.18);
       user-select:none;
     }
 
-    .name{
-      line-height:1.12;
-    }
-    .name h1{
-      margin:0;
-      font-size: 22px;
-      letter-spacing: -0.02em;
-    }
-    .name p{
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .name h1{ margin:0; font-size:22px; }
+    .name p{ margin:4px 0 0; font-size:13px; color: var(--muted); }
 
     .bio{
-      margin: 10px 0 14px;
+      margin: 12px 0 14px;
+      font-size:13.5px;
+      line-height:1.65;
       color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.65;
       max-width: 72ch;
     }
 
     .pills{
       display:flex;
       flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 10px;
+      gap:8px;
     }
+
     .pill{
-      font-size: 12px;
       padding: 7px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--panel);
       color: var(--muted);
     }
 
-    /* ===== Social buttons like guns.lol ===== */
+    /* =========================================================
+       DIVIDER
+       ========================================================= */
+    .divider{ height:1px; background: var(--line); }
+
+    /* =========================================================
+       LINKS
+       ========================================================= */
     .links{
+      padding:22px;
       display:grid;
-      gap: 10px;
-      padding: 0 22px 22px;
+      gap:10px;
     }
 
     .link{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
-
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
+      gap:12px;
+      padding:14px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
       background: rgba(0,0,0,.18);
-      color: var(--text);
-
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition: transform .12s ease,
+                  background .12s ease,
+                  border-color .12s ease;
     }
 
     .link:hover{
       transform: translateY(-1px);
-      background: rgba(255,255,255,.06);
+      background: var(--panel-strong);
       border-color: rgba(255,255,255,.20);
+    }
+
+    button.link{
+      width:100%;
+      border:none;
+      font: inherit;
+      color: inherit;
+      text-align:left;
+      cursor:pointer;
     }
 
     .l-left{
       display:flex;
       align-items:center;
-      gap: 12px;
+      gap:12px;
       min-width: 0;
     }
 
     .icon{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
+      width:34px;
+      height:34px;
+      border-radius:12px;
       display:grid;
       place-items:center;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
+      border:1px solid var(--line);
+      background: var(--panel);
       flex: 0 0 auto;
     }
 
-    .l-text{
-      min-width:0;
-      display:flex;
-      flex-direction:column;
-      gap: 2px;
-    }
+    .l-text{ min-width:0; }
     .l-text strong{
-      font-size: 13.5px;
-      letter-spacing: .1px;
+      display:block;
+      font-size:13.5px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
     .l-text span{
-      font-size: 12px;
+      display:block;
+      font-size:12px;
       color: var(--muted);
       white-space:nowrap;
       overflow:hidden;
@@ -299,8 +319,8 @@
     }
 
     .arrow{
-      color: rgba(255,255,255,.55);
-      font-size: 12px;
+      font-size:12px;
+      color: var(--muted);
       padding: 6px 10px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.10);
@@ -308,100 +328,105 @@
       flex: 0 0 auto;
     }
 
-    .btnlike{
-      border: none;
-      width: 100%;
-      text-align: left;
-      font: inherit;
-      cursor: pointer;
-    }
-
-    /* ===== Extra sections ===== */
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin: 0;
-    }
-
-    /* Mini stats row */
-    .kpis{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 16px 22px 0;
-    }
-    .kpi{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      border-radius: 18px;
-      padding: 12px;
-    }
-    .kpi strong{ display:block; font-size: 13px; }
-    .kpi span{ display:block; margin-top: 4px; font-size: 12px; color: var(--muted); }
-
-    /* Toggle buttons */
+    /* =========================================================
+       TOGGLES
+       ========================================================= */
     .toggleRow{
+      padding:16px 22px;
       display:flex;
-      gap: 8px;
       flex-wrap:wrap;
-      padding: 12px 22px 18px;
+      gap:8px;
     }
-    .tbtn{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-size: 12px;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .tbtn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.07);
-      border-color: rgba(255,255,255,.18);
-      color: var(--text);
-    }
-    .hidden{ display:none !important; }
 
-    /* Now Playing */
-    .nowplaying{
-      padding: 12px 22px 18px;
+    .tbtn{
+      padding:8px 10px;
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      cursor:pointer;
+      transition: background .12s ease,
+                  border-color .12s ease,
+                  color .12s ease,
+                  box-shadow .12s ease,
+                  transform .12s ease;
     }
+
+    .tbtn:hover{
+      background: var(--panel-strong);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .tbtn.active{
+      background: rgba(56,189,248,.14);
+      border-color: rgba(56,189,248,.45);
+      color: var(--text);
+      box-shadow: 0 0 0 4px rgba(56,189,248,.10);
+    }
+
+    /* =========================================================
+       YT MUSIC
+       ========================================================= */
+    .nowplaying{ padding:16px 22px; }
+
     .np-card{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      border: 1px solid rgba(255,255,255,.12);
+      padding:12px 14px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
       background: rgba(0,0,0,.14);
-      border-radius: 18px;
-      padding: 12px 14px;
     }
-    .np-left{display:flex;gap:12px;align-items:center;min-width:0}
+
+    .np-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
     .np-cover{
-      width:38px;height:38px;border-radius:14px;
-      background: linear-gradient(135deg, rgba(168,85,247,.55), rgba(56,189,248,.45));
-      border: 1px solid rgba(255,255,255,.12);
+      width:38px;
+      height:38px;
+      border-radius:14px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      border:1px solid var(--line);
       flex: 0 0 auto;
     }
-    .np-text{min-width:0}
-    .np-text strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .np-text span{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .np-right{display:flex;gap:8px;align-items:center;flex:0 0 auto}
+
+    .np-text{ min-width:0; }
+    .np-text strong{ display:block; font-size:13px; }
+    .np-text span{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .np-right{ display:flex; gap:8px; flex:0 0 auto; }
+
     .np-pill{
+      padding:6px 9px;
       font-size:11.5px;
-      padding: 6px 9px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--panel);
       color: var(--muted);
     }
 
+    /* =========================================================
+       CONTENT SECTIONS
+       ========================================================= */
     .more{
-      padding: 18px 22px 22px;
+      padding:22px;
       display:grid;
-      gap: 14px;
+      gap:16px;
     }
 
     .section-title{
@@ -409,102 +434,90 @@
       align-items:flex-end;
       justify-content:space-between;
       gap: 12px;
-      margin-top: 2px;
     }
-    .section-title h2{
-      margin:0;
-      font-size: 14px;
-      letter-spacing: .2px;
-    }
-    .section-title p{
-      margin:0;
-      font-size: 12px;
-      color: var(--muted);
-    }
+
+    .section-title h2{ margin:0; font-size:14px; }
+    .section-title p{ margin:0; font-size:12px; color: var(--muted); }
 
     .grid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
     .card{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      border-radius: 18px;
-      padding: 14px;
+      padding:14px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: var(--panel);
     }
 
-    .card h3{
-      margin:0 0 6px;
-      font-size: 13px;
-    }
-    .card p{
-      margin:0;
-      color: var(--muted);
-      font-size: 12.8px;
-      line-height: 1.6;
-    }
+    .card h3{ margin:0 0 6px; font-size:13px; }
+    .card p{ margin:0; font-size:12.8px; line-height:1.6; color: var(--muted); }
 
     .tags{
       display:flex;
       flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 10px;
+      gap:8px;
+      margin-top:10px;
     }
+
     .tag{
-      font-size: 11.5px;
-      padding: 6px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
+      font-size:11.5px;
+      padding:6px 9px;
+      border-radius:999px;
+      border:1px solid var(--line);
       background: rgba(0,0,0,.14);
       color: rgba(255,255,255,.62);
     }
 
-    /* Skill bars */
-    .skill{
-      margin-top: 10px;
-    }
+    /* =========================================================
+       SKILLS
+       ========================================================= */
+    .skill{ margin-top:10px; }
     .skill-top{
       display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      font-size:12px;
+      color: var(--muted);
+    }
+
+    .bar{
+      margin-top:8px;
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.07);
+      border:1px solid var(--line);
+      overflow:hidden;
+    }
+
+    .bar > div{
+      height:100%;
+      width: var(--w, 60%);
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    .foot{
+      padding:14px 22px;
+      border-top:1px solid var(--line);
+      display:flex;
+      align-items:center;
       justify-content:space-between;
       gap:10px;
       font-size:12px;
       color: var(--muted);
     }
-    .bar{
-      margin-top: 8px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-    }
-    .bar > div{
-      height:100%;
-      width: var(--w, 60%);
-      background: linear-gradient(90deg, rgba(168,85,247,.9), rgba(56,189,248,.9));
-    }
 
-    .foot{
-      padding: 14px 22px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      color: var(--muted);
-      font-size: 12px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-    }
-
-    /* Mobile */
-    @media (max-width: 720px){
-      .grid{ grid-template-columns: 1fr; }
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width:720px){
+      .grid{ grid-template-columns:1fr; }
       .topbar{ flex-direction:column; align-items:flex-start; }
-      .mini-nav{ justify-content:flex-start; }
-      .kpis{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -514,18 +527,17 @@
     <div class="topbar">
       <div class="badge"><span class="dot"></span> JokiiiBoy’s Space</div>
       <div class="mini-nav">
-        <a class="chip" href="#links">Links</a>
-        <a class="chip" href="#about">About</a>
-        <a class="chip" href="#highlights">Highlights</a>
-        <a class="chip" href="#projects">Projects</a>
-        <a class="chip" href="#setup">Setup</a>
-        <a class="chip" href="#contact">Contact</a>
+        <a href="#links" class="chip">Links</a>
+        <a href="#about" class="chip">About</a>
+        <a href="#highlights" class="chip">Highlights</a>
+        <a href="#projects" class="chip">Projects</a>
+        <a href="#setup" class="chip">Setup</a>
+        <a href="#contact" class="chip">Contact</a>
       </div>
     </div>
 
-    <div class="shell">
-      <!-- HERO -->
-      <div class="hero" id="top">
+    <div class="shell" id="top">
+      <section class="hero">
         <div class="profile">
           <div class="avatar" aria-hidden="true">JB</div>
           <div class="name">
@@ -534,12 +546,12 @@
           </div>
         </div>
 
-        <div class="bio">
+        <p class="bio">
           Hey — I’m JokiiiBoy. This is my link hub + portfolio-style page where I collect my projects, my setup,
           and what I’m currently focused on. I’m into clean UI, gaming vibes, and building cool digital stuff.
           <br><br>
-          <span style="color:rgba(255,255,255,.78)">I’m a femboy &lt;3</span>
-        </div>
+          <span style="color:rgba(255,255,255,.78)"><strong>I’m a femboy &lt;3</strong></span>
+        </p>
 
         <div class="pills">
           <span class="pill">UI / HUD design</span>
@@ -547,12 +559,11 @@
           <span class="pill">Clean, modern layouts</span>
           <span class="pill">Purple + Blue vibe</span>
         </div>
-      </div>
+      </section>
 
       <div class="divider"></div>
 
-      <!-- LINKS -->
-      <div class="links" id="links">
+      <section class="links" id="links">
         <a class="link" href="https://github.com/JokiiiBoy" target="_blank" rel="noopener noreferrer">
           <div class="l-left">
             <div class="icon" aria-hidden="true">⌂</div>
@@ -586,8 +597,7 @@
           <div class="arrow">↗</div>
         </a>
 
-        <!-- Copy Discord (FIXED ID + working fallback) -->
-        <button class="link btnlike" id="copyDiscord" type="button" aria-label="Copy Discord username">
+        <button class="link" id="copyDiscord" type="button" aria-label="Copy Discord username">
           <div class="l-left">
             <div class="icon" aria-hidden="true">⎘</div>
             <div class="l-text">
@@ -597,41 +607,25 @@
           </div>
           <div class="arrow" id="copyState">Copy</div>
         </button>
-      </div>
+      </section>
 
       <div class="divider"></div>
 
-      <!-- MINI STATS + TOGGLES + NOW PLAYING -->
-      <div class="kpis">
-        <div class="kpi">
-          <strong>Focus</strong>
-          <span>UI / HUD + clean layouts</span>
-        </div>
-        <div class="kpi">
-          <strong>Stack</strong>
-          <span>Godot • VS Code • KDE Neon</span>
-        </div>
-        <div class="kpi">
-          <strong>Vibe</strong>
-          <span>Purple/Blue • Cozy gaming</span>
-        </div>
-      </div>
-
       <div class="toggleRow">
-        <button class="tbtn" type="button" data-toggle="aboutGrid">Toggle About</button>
-        <button class="tbtn" type="button" data-toggle="highlightsGrid">Toggle Highlights</button>
-        <button class="tbtn" type="button" data-toggle="projectsGrid">Toggle Projects</button>
-        <button class="tbtn" type="button" data-toggle="setupGrid">Toggle Setup</button>
-        <button class="tbtn" type="button" data-toggle="contactGrid">Toggle Contact</button>
+        <button class="tbtn active" type="button" data-toggle="aboutGrid">About</button>
+        <button class="tbtn active" type="button" data-toggle="highlightsGrid">Highlights</button>
+        <button class="tbtn active" type="button" data-toggle="projectsGrid">Projects</button>
+        <button class="tbtn active" type="button" data-toggle="setupGrid">Setup</button>
+        <button class="tbtn active" type="button" data-toggle="contactGrid">Contact</button>
       </div>
 
-      <div class="nowplaying">
-        <div class="np-card" aria-label="Now playing placeholder">
+      <section class="nowplaying" aria-label="YT Music placeholder">
+        <div class="np-card">
           <div class="np-left">
             <div class="np-cover" aria-hidden="true"></div>
             <div class="np-text">
-              <strong>Now Playing</strong>
-              <span>Connect Spotify later (placeholder)</span>
+              <strong>YT Music</strong>
+              <span id="ytStatus">Currently listening (placeholder)</span>
             </div>
           </div>
           <div class="np-right">
@@ -639,12 +633,11 @@
             <span class="np-pill">vibes</span>
           </div>
         </div>
-      </div>
+      </section>
 
       <div class="divider"></div>
 
-      <!-- MORE CONTENT (the “but more”) -->
-      <div class="more">
+      <section class="more">
         <!-- ABOUT -->
         <div class="section-title" id="about">
           <h2>About</h2>
@@ -842,12 +835,12 @@
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="foot">
+      <footer class="foot">
         <span>© <span id="year"></span> JokiiiBoy • Built with care and purple-blue vibes.</span>
         <a class="chip" href="#top">Back to top ↑</a>
-      </div>
+      </footer>
     </div>
   </div>
 
@@ -855,10 +848,10 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener("click", (e) => {
-        const id = a.getAttribute("href");
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", (e) => {
+        const id = link.getAttribute("href");
         if (!id || id === "#") return;
         const el = document.querySelector(id);
         if (!el) return;
@@ -893,7 +886,7 @@
       });
     }
 
-    // Copy Discord button
+    // Copy Discord
     const copyBtn = document.getElementById("copyDiscord");
     const copyState = document.getElementById("copyState");
     if (copyBtn && copyState) {
@@ -909,15 +902,35 @@
       });
     }
 
-    // Toggle grids
+    // Toggles + active highlight
     document.querySelectorAll("[data-toggle]").forEach(btn => {
+      const id = btn.getAttribute("data-toggle");
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      // initial state
+      btn.classList.toggle("active", !el.classList.contains("hidden"));
+
       btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-toggle");
-        const el = document.getElementById(id);
-        if (!el) return;
         el.classList.toggle("hidden");
+        btn.classList.toggle("active", !el.classList.contains("hidden"));
       });
     });
+
+    // Optional: YT Music placeholder rotation (pure cosmetic)
+    const ytStatus = document.getElementById("ytStatus");
+    if (ytStatus) {
+      const lines = [
+        "Currently listening (placeholder)",
+        "YT Music vibe: chill + gaming",
+        "Playlist: purple-blue nights (placeholder)"
+      ];
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % lines.length;
+        ytStatus.textContent = lines[i];
+      }, 5000);
+    }
   </script>
 </body>
 </html>
