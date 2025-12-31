@@ -5,29 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
   <title>JokiiiBoy's Space</title>
-  <meta name="description" content="JokiiiBoy's Space — projects, contact etc." />
+  <meta name="description" content="JokiiiBoy's Space — links, projects, and vibes." />
   <meta name="author" content="JokiiiBoy" />
 
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --bg: #070816;
+      --bg0:#050612;
+      --bg1:#070816;
       --panel: rgba(255,255,255,.06);
       --panel2: rgba(255,255,255,.10);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
       --faint: rgba(255,255,255,.55);
       --line: rgba(255,255,255,.12);
-      --shadow: 0 14px 48px rgba(0,0,0,.45);
-      --radius: 20px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 22px;
+
       --accent1: #a855f7; /* purple */
       --accent2: #38bdf8; /* blue */
       --accent3: #22c55e; /* green */
-      --max: 1100px;
+
+      --max: 980px;
     }
 
     *{ box-sizing: border-box; }
@@ -36,572 +39,594 @@
       margin:0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      background: radial-gradient(1000px 600px at 15% 10%, rgba(168,85,247,.22), transparent 55%),
-                  radial-gradient(1000px 600px at 85% 20%, rgba(56,189,248,.18), transparent 55%),
-                  radial-gradient(900px 700px at 40% 90%, rgba(34,197,94,.10), transparent 55%),
-                  linear-gradient(180deg, #050612, #070816 55%, #060716);
+      background: var(--bg1);
       overflow-x:hidden;
     }
 
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-    .container{ width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
-
-    /* Top bar */
-    .topbar{
-      position: sticky; top:0; z-index:10;
-      backdrop-filter: blur(14px);
-      background: rgba(7,8,22,.55);
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 0;
-      gap: 16px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      min-width: 220px;
-    }
-    .avatar{
-      width:42px; height:42px; border-radius: 14px;
-      background: linear-gradient(135deg, rgba(168,85,247,.9), rgba(56,189,248,.85));
-      box-shadow: 0 10px 30px rgba(168,85,247,.22);
-      display:grid; place-items:center;
-      font-weight:800;
-    }
-    .brand-title{ line-height:1.1; }
-    .brand-title strong{ display:block; font-size: 14px; letter-spacing:.2px; }
-    .brand-title span{ display:block; font-size:12px; color: var(--muted); }
-
-    nav ul{ display:flex; gap: 14px; list-style:none; padding:0; margin:0; flex-wrap: wrap; justify-content:flex-end; }
-    nav a{
-      display:inline-block;
-      padding: 8px 10px;
-      border-radius: 12px;
-      color: var(--muted);
-    }
-    nav a:hover{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      text-decoration:none;
-    }
-
-    /* Hero */
-    .hero{ padding: 54px 0 26px; }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .hero-main{ padding: 26px; position:relative; overflow:hidden; }
-    .hero-main:before{
+    /* ===== Animated background (no seams) ===== */
+    body::before{
       content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(500px 300px at 20% 20%, rgba(168,85,247,.22), transparent 60%),
-                  radial-gradient(520px 320px at 80% 30%, rgba(56,189,248,.18), transparent 60%);
-      pointer-events:none;
-      opacity:.9;
-    }
-    .hero-main > *{ position:relative; }
+      position: fixed;
+      inset:-20%;
+      z-index:-2;
 
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
+      background:
+        radial-gradient(1200px 800px at 18% 12%, rgba(168,85,247,.22), transparent 72%),
+        radial-gradient(1200px 800px at 85% 22%, rgba(56,189,248,.18), transparent 74%),
+        radial-gradient(1100px 900px at 40% 88%, rgba(34,197,94,.10), transparent 78%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 60%, #060716);
+
+      filter: blur(30px);
+      transform: translate3d(0,0,0) scale(1.02);
+      will-change: transform;
+      animation: bgFloat 55s ease-in-out infinite alternate;
+    }
+
+    body::after{
+      content:"";
+      position: fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 600px at 50% 10%, rgba(255,255,255,.06), transparent 60%),
+        rgba(0,0,0,.28);
+    }
+
+    @keyframes bgFloat{
+      0%   { transform: translate3d(0,0,0) scale(1.02); }
+      50%  { transform: translate3d(-3%, -1.5%, 0) scale(1.05); }
+      100% { transform: translate3d(3%, 1.5%, 0) scale(1.07); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      body::before{ animation:none; }
+      *{ scroll-behavior:auto !important; }
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: none; }
+
+    .wrap{
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+      padding: 18px 0 60px;
+    }
+
+    /* ===== Top mini bar ===== */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 0 14px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 9px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .dot{
+      width:9px; height:9px; border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 18px rgba(56,189,248,.35);
+    }
+
+    .mini-nav{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       color: var(--muted);
       font-size: 12px;
-    }
-    .dot{
-      width:8px; height:8px; border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      box-shadow: 0 0 20px rgba(56,189,248,.35);
-    }
-
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-    }
-    .lead{
-      margin:0;
-      color: var(--muted);
-      font-size: 14.5px;
-      line-height:1.6;
-      max-width: 62ch;
-    }
-
-    .cta-row{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top: 18px;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 13px;
-      text-decoration:none;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.18);
+      color: var(--text);
+    }
+
+    /* ===== Main card ===== */
+    .shell{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero{
+      padding: 22px;
+      position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(800px 400px at 15% 20%, rgba(168,85,247,.20), transparent 60%),
+        radial-gradient(800px 420px at 85% 25%, rgba(56,189,248,.16), transparent 62%);
+      opacity: .9;
+      pointer-events:none;
+    }
+    .hero > *{ position:relative; }
+
+    .profile{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .avatar{
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(168,85,247,.95), rgba(56,189,248,.92));
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      letter-spacing: .5px;
+      box-shadow: 0 18px 46px rgba(168,85,247,.18);
       user-select:none;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20); }
-    .btn.primary{
-      border: none;
-      background: linear-gradient(90deg, rgba(168,85,247,.95), rgba(56,189,248,.95));
-      box-shadow: 0 10px 30px rgba(168,85,247,.18);
-    }
-    .btn.primary:hover{ filter: brightness(1.03); }
 
-    .hero-side{ padding: 22px; display:flex; flex-direction:column; gap: 12px; }
-    .mini{
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
+    .name{
+      line-height:1.12;
     }
-    .mini h3{ margin:0 0 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
-    .pill-row{ display:flex; flex-wrap:wrap; gap: 8px; }
+    .name h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+    .name p{
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .bio{
+      margin: 10px 0 14px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+      max-width: 70ch;
+    }
+
+    .pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
     .pill{
       font-size: 12px;
       padding: 7px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       color: var(--muted);
     }
 
-    /* Sections */
-    section{ padding: 20px 0; }
-    .section-head{
-      display:flex; align-items:flex-end; justify-content:space-between; gap: 16px;
-      margin: 12px 0 12px;
+    /* ===== Social buttons like guns.lol ===== */
+    .links{
+      display:grid;
+      gap: 10px;
+      padding: 0 22px 22px;
     }
-    .section-head h2{
+
+    .link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .link:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.20);
+    }
+
+    .l-left{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .icon{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      flex: 0 0 auto;
+    }
+
+    .l-text{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+    }
+    .l-text strong{
+      font-size: 13.5px;
+      letter-spacing: .1px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .l-text span{
+      font-size: 12px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .arrow{
+      color: rgba(255,255,255,.55);
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      flex: 0 0 auto;
+    }
+
+    /* ===== Extra sections ===== */
+    .divider{
+      height:1px;
+      background: rgba(255,255,255,.10);
+      margin: 0;
+    }
+
+    .more{
+      padding: 18px 22px 22px;
+      display:grid;
+      gap: 14px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin-top: 2px;
+    }
+    .section-title h2{
       margin:0;
-      font-size: 18px;
+      font-size: 14px;
       letter-spacing: .2px;
     }
-    .section-head p{
+    .section-title p{
       margin:0;
+      font-size: 12px;
       color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .card h3{
+      margin:0 0 6px;
       font-size: 13px;
     }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .grid-2{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .item{ padding: 18px; }
-    .item h3{ margin:0 0 8px; font-size: 15px; }
-    .item p{ margin:0; color: var(--muted); line-height:1.6; font-size: 13.5px; }
-    .meta{ margin-top: 10px; display:flex; flex-wrap:wrap; gap: 8px; }
-
-    .tag{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: var(--faint);
-    }
-
-    .divider{ height:1px; background: var(--line); margin: 16px 0; }
-
-    /* Contact */
-    form{ display:grid; gap: 10px; }
-    input, textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      color: var(--text);
-      outline: none;
-      font: inherit;
-    }
-    textarea{ min-height: 120px; resize: vertical; }
-    input:focus, textarea:focus{ border-color: rgba(56,189,248,.45); box-shadow: 0 0 0 4px rgba(56,189,248,.10); }
-
-    /* Footer */
-    footer{
-      padding: 28px 0 44px;
+    .card p{
+      margin:0;
       color: var(--muted);
-      font-size: 12.5px;
-    }
-    .foot{
-      display:flex; align-items:center; justify-content:space-between; gap: 12px;
-      flex-wrap:wrap;
-      border-top: 1px solid var(--line);
-      padding-top: 18px;
+      font-size: 12.8px;
+      line-height: 1.6;
     }
 
-    /* Responsive */
-    @media (max-width: 940px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .grid-3{ grid-template-columns: 1fr; }
-      .grid-2{ grid-template-columns: 1fr; }
-      nav ul{ justify-content:flex-start; }
-      .brand{ min-width: auto; }
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tag{
+      font-size: 11.5px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      color: rgba(255,255,255,.62);
+    }
+
+    .foot{
+      padding: 14px 22px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+
+    /* Mobile */
+    @media (max-width: 720px){
+      .grid{ grid-template-columns: 1fr; }
+      .topbar{ flex-direction:column; align-items:flex-start; }
+      .mini-nav{ justify-content:flex-start; }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="brand" href="#top" aria-label="Go to top">
-        <div class="avatar" aria-hidden="true">JB</div>
-        <div class="brand-title">
-          <strong>JokiiiBoy</strong>
-          <span>Personal Hub • Projects • Links</span>
-        </div>
-      </a>
-
-      <nav aria-label="Primary">
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#highlights">Highlights</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#setup">Setup</a></li>
-          <li><a href="#links">Links</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top" class="container">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="card hero-main">
-          <div class="kicker"><span class="dot"></span> Welcome to my corner of the internet</div>
-          <h1>Hey, I’m JokiiiBoy.</h1>
-          <p class="lead">
-            This is my personal website where I collect who I am, what I build, and what I’m currently working on.
-            I’m into clean UI and building cool digital stuff.
-          </p>
-
-          <div class="cta-row">
-            <a class="btn primary" href="#projects">View Projects</a>
-            <a class="btn" href="#links">My Links</a>
-            <a class="btn" href="#contact">Contact Me</a>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="grid-2">
-            <div class="mini">
-              <h3>Currently focused on</h3>
-              <div class="pill-row">
-                <span class="pill">UI / HUD design</span>
-                <span class="pill">Game dev workflows</span>
-                <span class="pill">Clean, modern layouts</span>
-              </div>
-            </div>
-            <div class="mini">
-              <h3>Vibe</h3>
-              <div class="pill-row">
-                <span class="pill">Purple + Blue</span>
-                <span class="pill">Cozy gaming</span>
-                <span class="pill">Slightly mischievous</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <aside class="card hero-side" aria-label="Quick facts">
-          <div class="mini">
-            <h3>Quick facts</h3>
-            <div class="pill-row">
-              <span class="pill">Based in: Germany</span>
-              <span class="pill">Language: EN / DE</span>
-              <span class="pill">Timezone: GMT+1</span>
-            </div>
-          </div>
-
-          <div class="mini">
-            <h3>What you’ll find here</h3>
-            <p style="margin:0;color:var(--muted);line-height:1.6;font-size:13.5px;">
-              A clean overview of me, my projects, my setup, and easy ways to reach me.
-            </p>
-          </div>
-
-          <div class="mini">
-            <h3>Tip</h3>
-            <p style="margin:0;color:var(--muted);line-height:1.6;font-size:13.5px;">
-          Im a Femboy <3
-            </p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="section-head">
-        <h2>About</h2>
-        <p>A quick intro and what I’m into.</p>
-      </div>
-
-      <div class="card item">
-        <h3>Who I am</h3>
-        <p>
-          I’m JokiiiBoy — I like building digital projects, experimenting with design, and creating cozy, modern experiences.
-          I’m into gaming, clean UI, and making things that feel smooth and satisfying.
-        </p>
-        <div class="meta">
-          <span class="tag">Design-minded</span>
-          <span class="tag">Builder</span>
-          <span class="tag">Gaming aesthetic</span>
-          <span class="tag">Purple/Blue themes</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- HIGHLIGHTS -->
-    <section id="highlights">
-      <div class="section-head">
-        <h2>Highlights</h2>
-        <p>The main things I’m known for.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="card item">
-          <h3>Clean UI & HUDs</h3>
-          <p>
-            I love designing game-like interfaces: health/mana elements, hotbars, smooth transitions, and readable layouts.
-          </p>
-          <div class="meta">
-            <span class="tag">UI</span><span class="tag">HUD</span><span class="tag">UX</span>
-          </div>
-        </div>
-
-        <div class="card item">
-          <h3>Game Dev</h3>
-          <p>
-            I enjoy working on gameplay systems and the “feel” of a project — making everything look and react nicely.
-          </p>
-          <div class="meta">
-            <span class="tag">Godot</span><span class="tag">Prototyping</span><span class="tag">Gameplay</span>
-          </div>
-        </div>
-
-        <div class="card item">
-          <h3>Modern Tech Vibes</h3>
-          <p>
-            Minimal, sleek, terminal-inspired visuals — plus a love for customizing configs and aesthetics.
-          </p>
-          <div class="meta">
-            <span class="tag">Linux</span><span class="tag">Customization</span><span class="tag">Nerd Fonts</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="section-head">
-        <h2>Projects</h2>
-        <p>Things I build.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card item">
-          <h3>Riftlight</h3>
-          <p>
-            A game project where I focus on HUD/GUI systems like orbs, hotbars, and clean interface feedback.
-          </p>
-          <div class="meta">
-            <span class="tag">Godot</span>
-            <span class="tag">HUD</span>
-            <span class="tag">Systems</span>
-          </div>
-        </div>
-
-        <div class="card item">
-          <h3>ZeroBay (concept)</h3>
-          <p>
-            A marketplace-style platform concept with a bold aesthetic.
-          </p>
-          <div class="meta">
-            <span class="tag">Web</span>
-            <span class="tag">Product idea</span>
-            <span class="tag">Design</span>
-          </div>
-        </div>
-
-        <div class="card item">
-          <h3>Minecraft Tools</h3>
-          <p>
-            Experiments and utilities around Minecraft: maps, HUD ideas, and other dev playground projects.
-          </p>
-          <div class="meta">
-            <span class="tag">Python</span>
-            <span class="tag">Mods</span>
-            <span class="tag">Tools</span>
-          </div>
-        </div>
-
-        <div class="card item">
-          <h3>Terminal Aesthetics</h3>
-          <p>
-            Custom configs and themes that make the terminal look modern, structured, and visually satisfying.
-          </p>
-          <div class="meta">
-            <span class="tag">neofetch</span>
-            <span class="tag">Themes</span>
-            <span class="tag">Configs</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SETUP -->
-    <section id="setup">
-      <div class="section-head">
-        <h2>Setup</h2>
-        <p>My digital comfort zone.</p>
-      </div>
-
-      <div class="grid-2">
-        <div class="card item">
-          <h3>PC & Tools</h3>
-          <p>
-            OS: Linux KDE Neon • Editor: VS Code • Design: DaVinci Resolve • Game Dev: Godot
-          </p>
-          <div class="meta">
-            <span class="tag">VS Code</span><span class="tag">Godot</span><span class="tag">DaVinci</span>
-          </div>
-        </div>
-
-        <div class="card item">
-          <h3>Theme</h3>
-          <p>
-            Cozy gaming corner, purple/blue lighting, clean desktop, and a slightly futuristic vibe.
-          </p>
-          <div class="meta">
-            <span class="tag">Purple</span><span class="tag">Blue</span><span class="tag">Cozy</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- LINKS -->
-    <section id="links">
-      <div class="section-head">
-        <h2>Links</h2>
-        <p>Put your socials and important URLs here.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="card item">
-          <h3>Discord</h3>
-          <p><a href="#" target="_blank" rel="noopener noreferrer">Add your invite link</a></p>
-          <div class="meta"><span class="tag">Community</span></div>
-        </div>
-
-        <div class="card item">
-          <h3>GitHub</h3>
-          <p><a href="#" target="_blank" rel="noopener noreferrer">https://github.com/JokiiiBoy</a></p>
-          <div class="meta"><span class="tag">Code</span></div>
-        </div>
-
-        <div class="card item">
-          <h3>YouTube</h3>
-          <p><a href="#" target="_blank" rel="noopener noreferrer">https://www.youtube.com/@JokiiiiBoy</a></p>
-          <div class="meta"><span class="tag">Content</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-<section id="contact">
-  <div class="section-head">
-    <h2>Contact</h2>
-    <p>The best way to reach me.</p>
-  </div>
-
-  <div class="grid-2">
-    <div class="card item">
-      <h3>Direct contact</h3>
-      <p>
-        I’m easiest to reach via Discord.<br /><br />
-        <strong>Discord:</strong>
-        <span style="color:var(--muted);">jokiiiiboy</span>
-      </p>
-
-      <div class="meta">
-        <span class="tag">Fast replies</span>
-        <span class="tag">No email needed</span>
-        <span class="tag">DM friendly</span>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="badge"><span class="dot"></span> JokiiiBoy’s Space</div>
+      <div class="mini-nav">
+        <a class="chip" href="#links">Links</a>
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#projects">Projects</a>
+        <a class="chip" href="#setup">Setup</a>
+        <a class="chip" href="#contact">Contact</a>
       </div>
     </div>
 
-    <div class="card item">
-      <h3>FAQ</h3>
-      <p>
-        <strong>What are you working on right now?</strong><br />
-        UI/HUD systems and clean, modern layouts for my projects.
-      </p>
+    <div class="shell">
+      <!-- HERO -->
+      <div class="hero" id="top">
+        <div class="profile">
+          <div class="avatar" aria-hidden="true">JB</div>
+          <div class="name">
+            <h1>JokiiiBoy</h1>
+            <p>Germany • GMT+1 • EN / DE</p>
+          </div>
+        </div>
+
+        <div class="bio">
+          Hey — I’m JokiiiBoy. This is my link hub + portfolio-style page where I collect my projects, my setup,
+          and what I’m currently focused on. I’m into clean UI, gaming vibes, and building cool digital stuff.
+          <br><br>
+          <span style="color:rgba(255,255,255,.78)">I’m a femboy &lt;3</span>
+        </div>
+
+        <div class="pills">
+          <span class="pill">UI / HUD design</span>
+          <span class="pill">Game dev workflows</span>
+          <span class="pill">Clean, modern layouts</span>
+          <span class="pill">Purple + Blue vibe</span>
+        </div>
+      </div>
 
       <div class="divider"></div>
 
-      <p>
-        <strong>Can people collaborate with you?</strong><br />
-        Yes — feel free to reach out on Discord if you have a cool idea.
-      </p>
-    </div>
-  </div>
-</section>
+      <!-- LINKS -->
+      <div class="links" id="links">
+        <a class="link" href="https://github.com/JokiiiBoy" target="_blank" rel="noopener noreferrer">
+          <div class="l-left">
+            <div class="icon" aria-hidden="true">⌂</div>
+            <div class="l-text">
+              <strong>GitHub</strong>
+              <span>github.com/JokiiiBoy</span>
+            </div>
+          </div>
+          <div class="arrow">↗</div>
+        </a>
 
+        <a class="link" href="https://www.youtube.com/@JokiiiiBoy" target="_blank" rel="noopener noreferrer">
+          <div class="l-left">
+            <div class="icon" aria-hidden="true">▶</div>
+            <div class="l-text">
+              <strong>YouTube</strong>
+              <span>youtube.com/@JokiiiiBoy</span>
+            </div>
+          </div>
+          <div class="arrow">↗</div>
+        </a>
 
-    <footer>
-      <div class="foot">
-        <span>© <span id="year"></span> JokiiiBoy. Built with love and purple-blue vibes.</span>
-        <span><a href="#top">Back to top ↑</a></span>
+        <!-- Replace # with your Discord invite if you want -->
+        <a class="link" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="l-left">
+            <div class="icon" aria-hidden="true">✦</div>
+            <div class="l-text">
+              <strong>Discord</strong>
+              <span>Add your invite link here</span>
+            </div>
+          </div>
+          <div class="arrow">↗</div>
+        </a>
+
+        <!-- Quick copy: Discord username -->
+        <button class="link" id="copyDiscord" type="button" style="cursor:pointer">
+          <div class="l-left">
+            <div class="icon" aria-hidden="true">⎘</div>
+            <div class="l-text">
+              <strong>Copy Discord</strong>
+              <span>jokiiiiboy</span>
+            </div>
+          </div>
+          <div class="arrow" id="copyState">Copy</div>
+        </button>
       </div>
-    </footer>
-  </main>
 
-  <script>
-    // Set footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
+      <div class="divider"></div>
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener("click", (e) => {
-        const id = a.getAttribute("href");
-        if (!id || id === "#") return;
-        const el = document.querySelector(id);
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.pushState(null, "", id);
-      });
-    });
-  </script>
-</body>
-</html>
+      <!-- MORE CONTENT (the “but more”) -->
+      <div class="more">
+        <!-- ABOUT -->
+        <div class="section-title" id="about">
+          <h2>About</h2>
+          <p>A quick intro</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Who I am</h3>
+            <p>
+              I like building digital projects, experimenting with design,
+              and creating cozy, modern experiences. I’m into gaming,
+              clean UI, and making things that feel smooth and satisfying.
+            </p>
+            <div class="tags">
+              <span class="tag">Design-minded</span>
+              <span class="tag">Builder</span>
+              <span class="tag">Gaming aesthetic</span>
+              <span class="tag">Purple/Blue themes</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Highlights</h3>
+            <p>
+              Clean UI & HUDs, game dev workflows, and modern tech vibes.
+              I also love customizing setups until everything looks and feels right.
+            </p>
+            <div class="tags">
+              <span class="tag">UI</span>
+              <span class="tag">HUD</span>
+              <span class="tag">Godot</span>
+              <span class="tag">Linux</span>
+              <span class="tag">Customization</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="section-title" id="projects">
+          <h2>Projects</h2>
+          <p>Things I build</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Riftlight</h3>
+            <p>
+              A game project where I focus on HUD/GUI systems like orbs,
+              hotbars, and clean interface feedback.
+            </p>
+            <div class="tags">
+              <span class="tag">Godot</span>
+              <span class="tag">HUD</span>
+              <span class="tag">Systems</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>ZeroBay (concept)</h3>
+            <p>
+              A marketplace-style platform concept with a bold aesthetic.
+            </p>
+            <div class="tags">
+              <span class="tag">Web</span>
+              <span class="tag">Product idea</span>
+              <span class="tag">Design</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Minecraft Tools</h3>
+            <p>
+              Experiments and utilities around Minecraft: maps, HUD ideas,
+              and other dev playground projects.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Mods</span>
+              <span class="tag">Tools</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Terminal Aesthetics</h3>
+            <p>
+              Custom configs and themes that make the terminal look modern,
+              structured, and visually satisfying.
+            </p>
+            <div class="tags">
+              <span class="tag">neofetch</span>
+              <span class="tag">Themes</span>
+              <span class="tag">Configs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETUP -->
+        <div class="section-title" id="setup">
+          <h2>Setup</h2>
+          <p>My digital comfort zone</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>PC & Tools</h3>
+            <p>
+              OS: Linux (KDE Neon) • Editor: VS Code • Video: DaVinci Resolve • Game Dev: Godot
+            </p>
+            <div class="tags">
+              <span class="tag">KDE Neon</span>
+              <span class="tag">VS Code</span>
+              <span class="tag">DaVinci</span>
+              <span class="tag">Godot</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Theme</h3>
+            <p>
+              Cozy gaming corner, purple/blue lighting, clean desktop,
+              and a slightly futuristic vibe.
+            </p>
+            <div class="tags">
+              <span class="tag">Purple</span>
+              <span class="tag">Blue</span>
+              <span class="tag">Cozy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="section-title" id="contact">
+          <h2>Contact</h2>
+          <p>The best way to reach me</p>
+        </div>
