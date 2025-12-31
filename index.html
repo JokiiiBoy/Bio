@@ -5,15 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>JokiiiBoy</title>
   <meta name="description" content="JokiiiBoy – personal link hub & portfolio" />
-  <meta name="author" content="JokiiiBoy" />
-  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --bg0:#050612;
+      --bg0:#040512;
       --bg1:#070816;
 
       --panel: rgba(255,255,255,.06);
@@ -40,119 +38,191 @@
       font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color: var(--text);
       background: var(--bg1);
-      overflow-x: hidden;
+      overflow-x:hidden;
     }
-    a{ color: inherit; text-decoration:none; }
+    a{ color:inherit; text-decoration:none; }
     .hidden{ display:none !important; }
 
-    /* =========================
-       BACKGROUND (FIXED)
-       - CSS animates ONLY filter/opacity, not transform
-       - JS drives transform via CSS variables
-       ========================= */
+    /* =========================================================
+       BACKGROUND SYSTEM (STACK)
+       - base gradients
+       - aurora waves
+       - glow blobs
+       - particles (canvas)
+       - noise
+       - mouse parallax (CSS variables)
+       ========================================================= */
 
-    .bg-layer{
-      position: fixed;
-      inset:-30%;
+    /* Full screen container for background */
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-10;
+      overflow:hidden;
       pointer-events:none;
+      background: linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+
+    /* Canvas particles */
+    #particles{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      opacity:.55;
+      filter: blur(.2px);
+      mix-blend-mode: screen;
+    }
+
+    /* Parallax layers share CSS vars */
+    .layer{
+      position:absolute;
+      inset:-30%;
       will-change: transform, filter, opacity;
       transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(1.12);
     }
 
-    /* deep layer */
-    #bg2{
-      z-index:-4;
+    /* Base gradient bloom */
+    .base{
       background:
-        radial-gradient(900px 650px at 70% 75%, rgba(168,85,247,.18), transparent 70%),
-        radial-gradient(800px 600px at 18% 65%, rgba(56,189,248,.14), transparent 70%),
-        radial-gradient(900px 700px at 55% 15%, rgba(255,255,255,.06), transparent 70%),
-        linear-gradient(180deg, #040512, #060616 50%, #040512);
-      filter: blur(60px) saturate(115%);
-      opacity: 0.95;
-      animation: haze 14s ease-in-out infinite alternate;
+        radial-gradient(1200px 900px at 18% 12%, rgba(168,85,247,.35), transparent 72%),
+        radial-gradient(1200px 900px at 85% 18%, rgba(56,189,248,.28), transparent 74%),
+        radial-gradient(1000px 800px at 55% 90%, rgba(168,85,247,.16), transparent 76%),
+        linear-gradient(180deg, rgba(2,3,12,1), rgba(7,8,22,1));
+      filter: blur(36px) saturate(135%);
+      opacity:.92;
+      animation: baseHue 16s ease-in-out infinite alternate;
     }
 
-    /* main layer */
-    #bg1{
-      z-index:-3;
-      background:
-        radial-gradient(1200px 900px at 20% 12%, rgba(168,85,247,.26), transparent 72%),
-        radial-gradient(1200px 900px at 85% 18%, rgba(56,189,248,.22), transparent 74%),
-        radial-gradient(1100px 900px at 55% 85%, rgba(168,85,247,.12), transparent 78%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      filter: blur(34px) saturate(120%);
-      opacity: 0.95;
-      animation: hue 18s ease-in-out infinite alternate;
+    @keyframes baseHue{
+      0%   { filter: blur(34px) saturate(125%) hue-rotate(0deg);   opacity:.90; }
+      50%  { filter: blur(40px) saturate(155%) hue-rotate(16deg);  opacity:.98; }
+      100% { filter: blur(38px) saturate(140%) hue-rotate(-12deg); opacity:.92; }
     }
 
-    /* readability overlay */
-    .bg-overlay{
-      position: fixed;
+    /* Slow deep haze */
+    .haze{
+      inset:-40%;
+      background:
+        radial-gradient(900px 700px at 70% 78%, rgba(168,85,247,.20), transparent 70%),
+        radial-gradient(900px 700px at 20% 70%, rgba(56,189,248,.16), transparent 70%),
+        radial-gradient(900px 700px at 55% 15%, rgba(255,255,255,.06), transparent 72%);
+      filter: blur(70px) saturate(125%);
+      opacity:.85;
+      animation: hazePulse 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes hazePulse{
+      from { filter: blur(66px) saturate(120%); opacity:.78; }
+      to   { filter: blur(78px) saturate(135%); opacity:.92; }
+    }
+
+    /* Aurora ribbon waves (the big "wow") */
+    .aurora{
+      inset:-35%;
+      opacity:.65;
+      filter: blur(34px) saturate(150%);
+      mix-blend-mode: screen;
+      background:
+        conic-gradient(from 180deg at 40% 50%,
+          rgba(168,85,247,.0) 0deg,
+          rgba(168,85,247,.22) 60deg,
+          rgba(56,189,248,.22) 120deg,
+          rgba(168,85,247,.12) 180deg,
+          rgba(56,189,248,.0) 360deg);
+      animation: auroraSpin 28s linear infinite;
+    }
+
+    .aurora2{
+      inset:-45%;
+      opacity:.45;
+      filter: blur(44px) saturate(170%);
+      mix-blend-mode: screen;
+      background:
+        conic-gradient(from 90deg at 60% 55%,
+          rgba(56,189,248,.0) 0deg,
+          rgba(56,189,248,.20) 70deg,
+          rgba(168,85,247,.20) 140deg,
+          rgba(56,189,248,.08) 210deg,
+          rgba(168,85,247,.0) 360deg);
+      animation: auroraSpin2 36s linear infinite reverse;
+    }
+
+    @keyframes auroraSpin{
+      from { transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(1.18) rotate(0deg); }
+      to   { transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(1.18) rotate(360deg); }
+    }
+    @keyframes auroraSpin2{
+      from { transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(1.25) rotate(0deg); }
+      to   { transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(1.25) rotate(360deg); }
+    }
+
+    /* Floating glow blobs (extra depth) */
+    .blob{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      filter: blur(60px);
+      opacity:.35;
+      mix-blend-mode: screen;
+      animation: blobFloat 10s ease-in-out infinite alternate;
+    }
+    .blob.purple{
+      left:-120px; top:80px;
+      background: radial-gradient(circle at 30% 30%, rgba(168,85,247,.55), transparent 60%);
+      animation-duration: 12s;
+    }
+    .blob.blue{
+      right:-140px; top:140px;
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.50), transparent 60%);
+      animation-duration: 14s;
+    }
+    .blob.pink{
+      left:20%; bottom:-240px;
+      background: radial-gradient(circle at 30% 30%, rgba(168,85,247,.35), transparent 60%);
+      animation-duration: 16s;
+      opacity:.28;
+    }
+
+    @keyframes blobFloat{
+      from { transform: translate3d(-10px, -10px, 0) scale(1.0); }
+      to   { transform: translate3d(20px, 15px, 0) scale(1.08); }
+    }
+
+    /* Readability overlay */
+    .overlay{
+      position:absolute;
       inset:0;
-      z-index:-2;
-      pointer-events:none;
       background:
-        radial-gradient(900px 600px at 50% 10%, rgba(255,255,255,.07), transparent 60%),
+        radial-gradient(900px 600px at 50% 10%, rgba(255,255,255,.08), transparent 60%),
         rgba(0,0,0,.30);
     }
 
-    /* subtle noise */
+    /* Subtle noise */
     .noise{
-      position: fixed;
+      position:absolute;
       inset:0;
-      z-index:-1;
-      pointer-events:none;
       background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
-      opacity: .9;
-    }
-
-    /* extra animated “light sweep” so you DEFINITELY see motion */
-    .light-sweep{
-      position: fixed;
-      inset:-40%;
-      z-index:-2;
-      pointer-events:none;
-      background:
-        conic-gradient(from 180deg at 50% 50%,
-          transparent 0deg,
-          rgba(56,189,248,.08) 60deg,
-          rgba(168,85,247,.08) 120deg,
-          transparent 180deg,
-          transparent 360deg);
-      filter: blur(40px);
-      animation: sweep 26s linear infinite;
-      opacity: .55;
-    }
-
-    @keyframes hue{
-      0%   { filter: blur(34px) saturate(115%) hue-rotate(0deg);   opacity: .92; }
-      50%  { filter: blur(38px) saturate(135%) hue-rotate(12deg);  opacity: .98; }
-      100% { filter: blur(36px) saturate(125%) hue-rotate(-10deg); opacity: .94; }
-    }
-    @keyframes haze{
-      0%   { filter: blur(58px) saturate(110%); opacity: .90; }
-      100% { filter: blur(68px) saturate(125%); opacity: .98; }
-    }
-    @keyframes sweep{
-      from { transform: rotate(0deg) scale(1.05); }
-      to   { transform: rotate(360deg) scale(1.05); }
+      opacity:.85;
     }
 
     @media (prefers-reduced-motion: reduce){
-      #bg1,#bg2,.light-sweep{ animation:none !important; }
+      .base,.haze,.aurora,.aurora2,.blob{ animation:none !important; }
+      #particles{ display:none; }
     }
 
-    /* =========================
-       LAYOUT
-       ========================= */
+    /* =========================================================
+       UI LAYOUT
+       ========================================================= */
     .wrap{
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 18px;
-      position: relative;
-      z-index: 1;
+      position:relative;
+      z-index:5;
     }
 
     .topbar{
@@ -182,12 +252,7 @@
       box-shadow: 0 0 18px rgba(56,189,248,.35);
     }
 
-    .mini-nav{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
+    .mini-nav{ display:flex; gap:8px; flex-wrap:wrap; }
     .chip{
       padding: 8px 10px;
       border-radius: 999px;
@@ -213,10 +278,7 @@
       overflow:hidden;
     }
 
-    .hero{
-      padding:22px;
-      position:relative;
-    }
+    .hero{ padding:22px; position:relative; }
     .hero::before{
       content:"";
       position:absolute;
@@ -247,7 +309,7 @@
       font-size:13.5px;
       line-height:1.65;
       color: var(--muted);
-      max-width: 72ch;
+      max-width:72ch;
     }
 
     .pills{ display:flex; flex-wrap:wrap; gap:8px; }
@@ -262,11 +324,7 @@
 
     .divider{ height:1px; background: var(--line); }
 
-    .links{
-      padding:22px;
-      display:grid;
-      gap:10px;
-    }
+    .links{ padding:22px; display:grid; gap:10px; }
     .link{
       display:flex;
       align-items:center;
@@ -301,19 +359,15 @@
     }
     .l-text{ min-width:0; }
     .l-text strong{
-      display:block;
-      font-size:13.5px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      display:block;font-size:13.5px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
     .l-text span{
-      display:block;
-      font-size:12px;
-      color: var(--muted);
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      display:block;font-size:12px;color:var(--muted);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
     .arrow{
-      font-size:12px;
-      color: var(--muted);
+      font-size:12px;color:var(--muted);
       padding: 6px 10px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.10);
@@ -321,12 +375,7 @@
       flex:0 0 auto;
     }
 
-    .toggleRow{
-      padding:16px 22px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
+    .toggleRow{ padding:16px 22px; display:flex; flex-wrap:wrap; gap:8px; }
     .tbtn{
       padding:8px 10px;
       font-size:12px;
@@ -337,11 +386,7 @@
       cursor:pointer;
       transition: background .12s ease, border-color .12s ease, color .12s ease, box-shadow .12s ease, transform .12s ease;
     }
-    .tbtn:hover{
-      background: var(--panel-strong);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
+    .tbtn:hover{ background: var(--panel-strong); color: var(--text); transform: translateY(-1px); }
     .tbtn.active{
       background: rgba(56,189,248,.14);
       border-color: rgba(56,189,248,.45);
@@ -351,16 +396,12 @@
 
     .nowplaying{ padding:16px 22px; }
     .np-card{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 14px;
-      border-radius: var(--radius);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:12px 14px;border-radius: var(--radius);
       border:1px solid var(--line);
       background: rgba(0,0,0,.14);
     }
-    .np-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+    .np-left{ display:flex;align-items:center;gap:12px;min-width:0; }
     .np-cover{
       width:38px;height:38px;border-radius:14px;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
@@ -368,92 +409,33 @@
       flex:0 0 auto;
     }
     .np-text{ min-width:0; }
-    .np-text strong{ display:block; font-size:13px; }
-    .np-text span{
-      display:block;
-      font-size:12px;
-      color: var(--muted);
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-    .np-right{ display:flex; gap:8px; flex:0 0 auto; }
-    .np-pill{
-      padding:6px 9px;
-      font-size:11.5px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: var(--panel);
-      color: var(--muted);
-    }
+    .np-text strong{ display:block;font-size:13px; }
+    .np-text span{ display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .np-right{ display:flex;gap:8px;flex:0 0 auto; }
+    .np-pill{ padding:6px 9px;font-size:11.5px;border-radius:999px;border:1px solid var(--line);background: var(--panel);color: var(--muted); }
 
-    .more{
-      padding:22px;
-      display:grid;
-      gap:16px;
-    }
-    .section-title{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .section-title h2{ margin:0; font-size:14px; }
-    .section-title p{ margin:0; font-size:12px; color: var(--muted); }
+    .more{ padding:22px; display:grid; gap:16px; }
+    .section-title{ display:flex;align-items:flex-end;justify-content:space-between;gap:12px; }
+    .section-title h2{ margin:0;font-size:14px; }
+    .section-title p{ margin:0;font-size:12px;color:var(--muted); }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    .card{
-      padding:14px;
-      border-radius: var(--radius);
-      border:1px solid var(--line);
-      background: var(--panel);
-    }
-    .card h3{ margin:0 0 6px; font-size:13px; }
-    .card p{ margin:0; font-size:12.8px; line-height:1.6; color: var(--muted); }
+    .grid{ display:grid;grid-template-columns: 1fr 1fr; gap:12px; }
+    .card{ padding:14px;border-radius: var(--radius);border:1px solid var(--line);background: var(--panel); }
+    .card h3{ margin:0 0 6px;font-size:13px; }
+    .card p{ margin:0;font-size:12.8px;line-height:1.6;color:var(--muted); }
 
-    .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-    .tag{
-      font-size:11.5px;
-      padding:6px 9px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.14);
-      color: rgba(255,255,255,.62);
-    }
+    .tags{ display:flex;flex-wrap:wrap;gap:8px;margin-top:10px; }
+    .tag{ font-size:11.5px;padding:6px 9px;border-radius:999px;border:1px solid var(--line);background: rgba(0,0,0,.14);color: rgba(255,255,255,.62); }
 
     .skill{ margin-top:10px; }
-    .skill-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      font-size:12px;
-      color: var(--muted);
-    }
-    .bar{
-      margin-top:8px;
-      height:10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.07);
-      border:1px solid var(--line);
-      overflow:hidden;
-    }
-    .bar > div{
-      height:100%;
-      width: var(--w, 60%);
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-    }
+    .skill-top{ display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted); }
+    .bar{ margin-top:8px;height:10px;border-radius:999px;background: rgba(255,255,255,.07);border:1px solid var(--line);overflow:hidden; }
+    .bar > div{ height:100%;width: var(--w, 60%);background: linear-gradient(90deg, var(--accent1), var(--accent2)); }
 
     .foot{
-      padding:14px 22px;
-      border-top:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-size:12px;
-      color: var(--muted);
+      padding:14px 22px;border-top:1px solid var(--line);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-size:12px;color:var(--muted);
     }
 
     @media (max-width:720px){
@@ -464,13 +446,25 @@
 </head>
 
 <body>
-  <!-- Background layers -->
-  <div id="bg2" class="bg-layer"></div>
-  <div id="bg1" class="bg-layer"></div>
-  <div class="light-sweep"></div>
-  <div class="bg-overlay"></div>
-  <div class="noise"></div>
+  <!-- BACKGROUND -->
+  <div class="bg" aria-hidden="true">
+    <canvas id="particles"></canvas>
 
+    <div id="layerHaze" class="layer haze"></div>
+    <div id="layerBase" class="layer base"></div>
+
+    <div id="layerAurora" class="layer aurora"></div>
+    <div id="layerAurora2" class="layer aurora2"></div>
+
+    <div class="blob purple"></div>
+    <div class="blob blue"></div>
+    <div class="blob pink"></div>
+
+    <div class="overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <!-- UI -->
   <div class="wrap">
     <div class="topbar">
       <div class="badge"><span class="dot"></span> JokiiiBoy’s Space</div>
@@ -515,10 +509,7 @@
         <a class="link" href="https://github.com/JokiiiBoy" target="_blank" rel="noopener noreferrer">
           <div class="l-left">
             <div class="icon" aria-hidden="true">⌂</div>
-            <div class="l-text">
-              <strong>GitHub</strong>
-              <span>github.com/JokiiiBoy</span>
-            </div>
+            <div class="l-text"><strong>GitHub</strong><span>github.com/JokiiiBoy</span></div>
           </div>
           <div class="arrow">↗</div>
         </a>
@@ -526,10 +517,7 @@
         <a class="link" href="https://www.youtube.com/@JokiiiiBoy" target="_blank" rel="noopener noreferrer">
           <div class="l-left">
             <div class="icon" aria-hidden="true">▶</div>
-            <div class="l-text">
-              <strong>YouTube</strong>
-              <span>youtube.com/@JokiiiiBoy</span>
-            </div>
+            <div class="l-text"><strong>YouTube</strong><span>youtube.com/@JokiiiiBoy</span></div>
           </div>
           <div class="arrow">↗</div>
         </a>
@@ -537,10 +525,7 @@
         <a class="link" href="https://steamcommunity.com/id/jokiiiiboy/" target="_blank" rel="noopener noreferrer">
           <div class="l-left">
             <div class="icon" aria-hidden="true">✦</div>
-            <div class="l-text">
-              <strong>Steam</strong>
-              <span>steamcommunity.com/id/jokiiiiboy</span>
-            </div>
+            <div class="l-text"><strong>Steam</strong><span>steamcommunity.com/id/jokiiiiboy</span></div>
           </div>
           <div class="arrow">↗</div>
         </a>
@@ -548,10 +533,7 @@
         <button class="link" id="copyDiscord" type="button" aria-label="Copy Discord username">
           <div class="l-left">
             <div class="icon" aria-hidden="true">⎘</div>
-            <div class="l-text">
-              <strong>Copy Discord</strong>
-              <span>jokiiiiboy</span>
-            </div>
+            <div class="l-text"><strong>Copy Discord</strong><span>jokiiiiboy</span></div>
           </div>
           <div class="arrow" id="copyState">Copy</div>
         </button>
@@ -586,10 +568,7 @@
       <div class="divider"></div>
 
       <section class="more">
-        <div class="section-title" id="about">
-          <h2>About</h2>
-          <p>A quick intro</p>
-        </div>
+        <div class="section-title" id="about"><h2>About</h2><p>A quick intro</p></div>
 
         <div class="grid" id="aboutGrid">
           <div class="card">
@@ -628,160 +607,45 @@
           </div>
         </div>
 
-        <div class="section-title" id="highlights">
-          <h2>Highlights</h2>
-          <p>The main things I’m known for</p>
-        </div>
+        <div class="section-title" id="highlights"><h2>Highlights</h2><p>Main focus</p></div>
 
         <div class="grid" id="highlightsGrid">
           <div class="card">
             <h3>Clean UI & HUDs</h3>
-            <p>
-              I love designing game-like interfaces: health/mana elements, hotbars,
-              smooth transitions, and readable layouts.
-            </p>
-            <div class="tags">
-              <span class="tag">UI</span><span class="tag">HUD</span><span class="tag">UX</span>
-            </div>
+            <p>Health/mana elements, hotbars, smooth transitions, readable layouts.</p>
+            <div class="tags"><span class="tag">UI</span><span class="tag">HUD</span><span class="tag">UX</span></div>
           </div>
-
           <div class="card">
             <h3>Modern Tech Vibes</h3>
-            <p>
-              Minimal, sleek, terminal-inspired visuals — plus a love for customizing configs
-              and aesthetics.
-            </p>
-            <div class="tags">
-              <span class="tag">Linux</span><span class="tag">Customization</span><span class="tag">Nerd Fonts</span>
-            </div>
+            <p>Minimal, sleek, terminal-inspired visuals & customization.</p>
+            <div class="tags"><span class="tag">Linux</span><span class="tag">Configs</span><span class="tag">Themes</span></div>
           </div>
         </div>
 
-        <div class="section-title" id="projects">
-          <h2>Projects</h2>
-          <p>Things I build</p>
-        </div>
+        <div class="section-title" id="projects"><h2>Projects</h2><p>What I build</p></div>
 
         <div class="grid" id="projectsGrid">
-          <div class="card">
-            <h3>Riftlight</h3>
-            <p>
-              A game project where I focus on HUD/GUI systems like orbs,
-              hotbars, and clean interface feedback.
-            </p>
-            <div class="tags">
-              <span class="tag">Godot</span>
-              <span class="tag">HUD</span>
-              <span class="tag">Systems</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>ZeroBay (concept)</h3>
-            <p>
-              A marketplace-style platform concept with a bold aesthetic.
-            </p>
-            <div class="tags">
-              <span class="tag">Web</span>
-              <span class="tag">Product idea</span>
-              <span class="tag">Design</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Minecraft Tools</h3>
-            <p>
-              Experiments and utilities around Minecraft: maps, HUD ideas,
-              and other dev playground projects.
-            </p>
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">Mods</span>
-              <span class="tag">Tools</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Terminal Aesthetics</h3>
-            <p>
-              Custom configs and themes that make the terminal look modern,
-              structured, and visually satisfying.
-            </p>
-            <div class="tags">
-              <span class="tag">neofetch</span>
-              <span class="tag">Themes</span>
-              <span class="tag">Configs</span>
-            </div>
-          </div>
+          <div class="card"><h3>Riftlight</h3><p>Game project focused on HUD & UI systems.</p></div>
+          <div class="card"><h3>ZeroBay</h3><p>Marketplace concept with bold aesthetics.</p></div>
+          <div class="card"><h3>Minecraft Tools</h3><p>Maps, utilities, experiments and dev playground.</p></div>
+          <div class="card"><h3>Terminal Aesthetics</h3><p>neofetch, configs, visual structure & style.</p></div>
         </div>
 
-        <div class="section-title" id="setup">
-          <h2>Setup</h2>
-          <p>My digital comfort zone</p>
-        </div>
-
+        <div class="section-title" id="setup"><h2>Setup</h2><p>My environment</p></div>
         <div class="grid" id="setupGrid">
-          <div class="card">
-            <h3>PC & Tools</h3>
-            <p>
-              OS: Linux (KDE Neon) • Editor: VS Code • Video: DaVinci Resolve • Game Dev: Godot
-            </p>
-            <div class="tags">
-              <span class="tag">KDE Neon</span>
-              <span class="tag">VS Code</span>
-              <span class="tag">DaVinci</span>
-              <span class="tag">Godot</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Theme</h3>
-            <p>
-              Cozy gaming corner, purple/blue lighting, clean desktop,
-              and a slightly futuristic vibe.
-            </p>
-            <div class="tags">
-              <span class="tag">Purple</span>
-              <span class="tag">Blue</span>
-              <span class="tag">Cozy</span>
-            </div>
-          </div>
+          <div class="card"><h3>PC & Tools</h3><p>Linux (KDE Neon) • VS Code • Godot</p></div>
+          <div class="card"><h3>Vibe</h3><p>Purple / Blue lighting + cozy gaming corner.</p></div>
         </div>
 
-        <div class="section-title" id="contact">
-          <h2>Contact</h2>
-          <p>The best way to reach me</p>
-        </div>
-
+        <div class="section-title" id="contact"><h2>Contact</h2><p>Reach me</p></div>
         <div class="grid" id="contactGrid">
-          <div class="card">
-            <h3>Direct</h3>
-            <p>
-              I’m easiest to reach via Discord.<br><br>
-              <strong>Discord:</strong> <span style="color:rgba(255,255,255,.78)">jokiiiiboy</span>
-            </p>
-            <div class="tags">
-              <span class="tag">Fast replies</span>
-              <span class="tag">DM friendly</span>
-              <span class="tag">No email</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>FAQ</h3>
-            <p>
-              <strong>What are you working on right now?</strong><br>
-              UI/HUD systems and clean, modern layouts for my projects.
-              <br><br>
-              <strong>Can people collaborate with you?</strong><br>
-              Yes — feel free to reach out on Discord if you have a cool idea.
-            </p>
-          </div>
+          <div class="card"><h3>Discord</h3><p>jokiiiiboy</p></div>
+          <div class="card"><h3>FAQ</h3><p><strong>Collabs?</strong><br>Yes, DM me on Discord.</p></div>
         </div>
       </section>
 
       <footer class="foot">
-        <span>© <span id="year"></span> JokiiiBoy • Built with care and purple-blue vibes.</span>
+        <span>© <span id="year"></span> JokiiiBoy • Purple-blue vibes.</span>
         <a class="chip" href="#top">Back to top ↑</a>
       </footer>
     </div>
@@ -806,9 +670,7 @@
 
     // Copy helper (HTTPS + file:// fallback)
     function copyText(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        return navigator.clipboard.writeText(text);
-      }
+      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
       return new Promise((resolve, reject) => {
         try {
           const ta = document.createElement("textarea");
@@ -816,16 +678,13 @@
           ta.style.position = "fixed";
           ta.style.left = "-9999px";
           ta.style.top = "-9999px";
-          ta.setAttribute("readonly", "");
           document.body.appendChild(ta);
           ta.select();
           ta.setSelectionRange(0, ta.value.length);
           const ok = document.execCommand("copy");
           document.body.removeChild(ta);
           ok ? resolve() : reject(new Error("copy blocked"));
-        } catch (err) {
-          reject(err);
-        }
+        } catch (err) { reject(err); }
       });
     }
 
@@ -850,21 +709,19 @@
       const id = btn.getAttribute("data-toggle");
       const el = document.getElementById(id);
       if (!el) return;
-
       btn.classList.toggle("active", !el.classList.contains("hidden"));
-
       btn.addEventListener("click", () => {
         el.classList.toggle("hidden");
         btn.classList.toggle("active", !el.classList.contains("hidden"));
       });
     });
 
-    // YT Music placeholder rotation (cosmetic)
+    // YT Music placeholder rotation
     const ytStatus = document.getElementById("ytStatus");
     if (ytStatus) {
       const lines = [
         "Currently listening (placeholder)",
-        "YT Music vibe: chill + gaming",
+        "Aurora mode: ON ✨",
         "Playlist: purple-blue nights (placeholder)"
       ];
       let i = 0;
@@ -874,50 +731,126 @@
       }, 5000);
     }
 
-    // =========================
-    // MOUSE REACTION (FIXED)
-    // Uses CSS vars instead of overwriting transform
-    // =========================
-    const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const bg1 = document.getElementById("bg1");
-    const bg2 = document.getElementById("bg2");
+    // ========= Mouse Parallax (CSS Vars)
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!prefersReduce && bg1 && bg2) {
-      let tx = 0, ty = 0;
-      let cx = 0, cy = 0;
-      const smooth = 0.10;
+    const layers = [
+      { el: document.getElementById("layerBase"), s: 18 },
+      { el: document.getElementById("layerHaze"), s: 28 },
+      { el: document.getElementById("layerAurora"), s: 26 },
+      { el: document.getElementById("layerAurora2"), s: 34 }
+    ].filter(x => x.el);
 
-      // how strong it moves (increase to feel it more)
-      const strength1 = 18; // px
-      const strength2 = 34; // px
-
-      function frame(){
-        cx += (tx - cx) * smooth;
-        cy += (ty - cy) * smooth;
-
-        // set vars on each layer
-        bg1.style.setProperty("--mx", `${cx * strength1}px`);
-        bg1.style.setProperty("--my", `${cy * strength1}px`);
-
-        bg2.style.setProperty("--mx", `${cx * strength2}px`);
-        bg2.style.setProperty("--my", `${cy * strength2}px`);
-
-        requestAnimationFrame(frame);
-      }
+    if (!reduce && layers.length) {
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+      const smooth = 0.08;
 
       window.addEventListener("mousemove", (e) => {
-        const x = (e.clientX / window.innerWidth) * 2 - 1;  // -1..1
-        const y = (e.clientY / window.innerHeight) * 2 - 1; // -1..1
-        tx = x;
-        ty = y;
+        const x = (e.clientX / innerWidth) * 2 - 1;
+        const y = (e.clientY / innerHeight) * 2 - 1;
+        tx = x; ty = y;
       }, { passive: true });
 
       window.addEventListener("mouseleave", () => {
         tx = 0; ty = 0;
       }, { passive: true });
 
-      requestAnimationFrame(frame);
+      (function loop(){
+        cx += (tx - cx) * smooth;
+        cy += (ty - cy) * smooth;
+
+        for (const L of layers) {
+          L.el.style.setProperty("--mx", `${cx * L.s}px`);
+          L.el.style.setProperty("--my", `${cy * L.s}px`);
+        }
+        requestAnimationFrame(loop);
+      })();
     }
+
+    // ========= Particles (Canvas)
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d", { alpha: true });
+
+    let w, h, dpr;
+    function resize(){
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+
+    const N = 120; // increase for more particles
+    const parts = [];
+    function rand(a,b){ return a + Math.random()*(b-a); }
+
+    function init(){
+      parts.length = 0;
+      for(let i=0;i<N;i++){
+        parts.push({
+          x: rand(0, w),
+          y: rand(0, h),
+          r: rand(0.6, 2.2),
+          vx: rand(-0.12, 0.12),
+          vy: rand(-0.10, 0.10),
+          a: rand(0.08, 0.22),
+          tw: rand(0.002, 0.01),
+          t: rand(0, 999)
+        });
+      }
+    }
+
+    function tick(){
+      if (!w || !h) return requestAnimationFrame(tick);
+
+      ctx.clearRect(0,0,w,h);
+
+      // soft vignette
+      const g = ctx.createRadialGradient(w/2,h/2,0,w/2,h/2,Math.max(w,h)/1.1);
+      g.addColorStop(0,"rgba(0,0,0,0)");
+      g.addColorStop(1,"rgba(0,0,0,0.35)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,w,h);
+
+      // particles
+      for(const p of parts){
+        p.t += 1;
+        p.x += p.vx * 60/60;
+        p.y += p.vy * 60/60;
+
+        // wrap
+        if(p.x < -10) p.x = w + 10;
+        if(p.x > w + 10) p.x = -10;
+        if(p.y < -10) p.y = h + 10;
+        if(p.y > h + 10) p.y = -10;
+
+        // twinkle
+        const alpha = p.a + Math.sin(p.t * p.tw) * 0.06;
+
+        // draw
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(120,200,255,${alpha})`;
+        ctx.fill();
+
+        // occasional purple tint
+        if ((p.t % 240) < 3) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r*1.5, 0, Math.PI*2);
+          ctx.fillStyle = `rgba(200,120,255,${alpha*0.7})`;
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    // start
+    setTimeout(() => { resize(); init(); tick(); }, 50);
+    window.addEventListener("resize", () => { resize(); init(); }, { passive: true });
   </script>
 </body>
 </html>
