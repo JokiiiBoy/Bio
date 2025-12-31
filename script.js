@@ -1,29 +1,59 @@
-// Wait for the document to load before running the script 
-(function ($) {
-  
-  // We use some Javascript and the URL #fragment to hide/show different parts of the page
-  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Linking_to_an_element_on_the_same_page
-  $(window).on('load hashchange', function(){
-    
-    // First hide all content regions, then show the content-region specified in the URL hash 
-    // (or if no hash URL is found, default to first menu item)
-    $('.content-region').hide();
-    
-    // Remove any active classes on the main-menu
-    $('.main-menu a').removeClass('active');
-    var region = location.hash.toString() || $('.main-menu a:first').attr('href');
-    
-    // Now show the region specified in the URL hash
-    $(region).show();
-    
-    // Highlight the menu link associated with this region by adding the .active CSS class
-    $('.main-menu a[href="'+ region +'"]').addClass('active'); 
+// Year
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
-    // Alternate method: Use AJAX to load the contents of an external file into a div based on URL fragment
-    // This will extract the region name from URL hash, and then load [region].html into the main #content div
-    // var region = location.hash.toString() || '#first';
-    // $('#content').load(region.slice(1) + '.html')
-    
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+  link.addEventListener("click",e=>{
+    const id = link.getAttribute("href");
+    if(id==="#" || !document.querySelector(id)) return;
+    e.preventDefault();
+    document.querySelector(id).scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
   });
-  
-})(jQuery);
+});
+
+// Copy Discord (with fallback)
+function copyText(text){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(text);
+  }
+  const t=document.createElement("textarea");
+  t.value=text;
+  t.style.position="fixed";
+  t.style.left="-9999px";
+  document.body.appendChild(t);
+  t.select();
+  document.execCommand("copy");
+  document.body.removeChild(t);
+  return Promise.resolve();
+}
+
+const copyBtn=document.getElementById("copyDiscord");
+const copyState=document.getElementById("copyState");
+
+copyBtn.addEventListener("click",async()=>{
+  try{
+    await copyText("jokiiiiboy");
+    copyState.textContent="Copied!";
+    setTimeout(()=>copyState.textContent="Copy",1200);
+  }catch{
+    copyState.textContent="Blocked";
+  }
+});
+
+// Toggle sections + active highlight
+document.querySelectorAll(".tbtn").forEach(btn=>{
+  const id = btn.dataset.toggle;
+  const section = document.getElementById(id);
+
+  btn.addEventListener("click",()=>{
+    section.classList.toggle("hidden");
+    btn.classList.toggle(
+      "active",
+      !section.classList.contains("hidden")
+    );
+  });
+});
