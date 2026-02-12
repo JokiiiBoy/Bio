@@ -3,338 +3,364 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>JokiiiBoy – Portfolio</title>
-  <meta name="description" content="JokiiiBoy – Bewerbung / Portfolio (Webdesign & Minecraft)" />
+  <title>Polarus – Gaming Console Project</title>
+  <meta name="description" content="Polarus – modulare, community-getriebene Gaming-Konsole" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg0:#050615;
-      --bg1:#0a0b1d;
+      --bg0:#040512;
+      --bg1:#0a0b1f;
 
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.10);
-      --line: rgba(255,255,255,.14);
+      --panel:rgba(255,255,255,.05);
+      --panel-strong:rgba(255,255,255,.10);
+      --line:rgba(255,255,255,.14);
 
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
 
       --a1:#a855f7;
       --a2:#38bdf8;
 
-      --radius: 18px;
-      --radius-lg: 28px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:22px;
+      --radius-lg:28px;
+      --shadow: 0 18px 70px rgba(0,0,0,.55);
 
-      --max: 980px;
+      --max:1100px;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; margin:0; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, var(--bg0), var(--bg1));
+      margin:0;
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg0),var(--bg1));
       overflow-x:hidden;
     }
-    a{ color:inherit; text-decoration:none; }
 
-    /* ---- Background (cleaner) ---- */
+    a{color:inherit;text-decoration:none}
+
+    /* ===== Background base ===== */
     .bg{
-      position:fixed;
-      inset:0;
-      z-index:-10;
-      pointer-events:none;
-      overflow:hidden;
-    }
-    .bg::before{
-      content:"";
-      position:absolute;
-      inset:-20%;
+      position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;
       background:
-        radial-gradient(900px 700px at 18% 14%, rgba(168,85,247,.28), transparent 68%),
-        radial-gradient(900px 700px at 84% 18%, rgba(56,189,248,.22), transparent 70%),
-        radial-gradient(900px 700px at 50% 92%, rgba(168,85,247,.14), transparent 72%);
-      filter: blur(34px) saturate(140%);
+        radial-gradient(1100px 800px at 18% 12%, rgba(168,85,247,.22), transparent 72%),
+        radial-gradient(1100px 800px at 84% 16%, rgba(56,189,248,.18), transparent 74%),
+        radial-gradient(1200px 900px at 50% 96%, rgba(168,85,247,.10), transparent 74%),
+        linear-gradient(180deg,var(--bg0),var(--bg1));
+      filter: blur(28px) saturate(145%);
       opacity:.95;
-      animation: breathe 10s ease-in-out infinite alternate;
-    }
-    .bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: rgba(0,0,0,.30);
-    }
-    @keyframes breathe{
-      from { transform: scale(1.00); opacity:.88; }
-      to   { transform: scale(1.05); opacity:1; }
-    }
-    @media (prefers-reduced-motion: reduce){
-      .bg::before{ animation:none; }
     }
 
-    /* ---- Layout ---- */
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px;
-      position:relative;
-      z-index:2;
-    }
+    .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px 70px;position:relative;z-index:1}
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding-bottom:14px;
-    }
-
+    /* ===== Topbar ===== */
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--panel);
+      display:inline-flex;align-items:center;gap:10px;
+      padding:9px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--muted);
       font-size:12px;
-      color: var(--muted);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
     }
     .dot{
       width:9px;height:9px;border-radius:999px;
-      background: linear-gradient(90deg, var(--a1), var(--a2));
-      box-shadow: 0 0 18px rgba(56,189,248,.35);
+      background:linear-gradient(90deg,var(--a1),var(--a2));
+      box-shadow:0 0 18px rgba(56,189,248,.35);
     }
 
-    .nav{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
+    .nav{display:flex;gap:8px;flex-wrap:wrap}
     .chip{
-      padding: 8px 10px;
-      border-radius: 999px;
+      padding:8px 10px;
+      border-radius:999px;
       font-size:12px;
-      color: var(--muted);
+      color:var(--muted);
       border:1px solid var(--line);
-      background: var(--panel);
-      transition: transform .12s ease, background .12s ease, color .12s ease, border-color .12s ease;
+      background:var(--panel);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
     }
     .chip:hover{
       transform: translateY(-1px);
-      background: var(--panel2);
-      color: var(--text);
+      background: var(--panel-strong);
       border-color: rgba(255,255,255,.18);
+      color: var(--text);
     }
 
+    /* ===== Shell ===== */
     .shell{
       border:1px solid var(--line);
       background: var(--panel);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
       overflow:hidden;
     }
 
+    /* ===== HERO (no animated gradient) ===== */
     .hero{
-      padding: 22px;
       position:relative;
+      padding:28px;
+      border-bottom: 1px solid var(--line);
+      isolation:isolate;
     }
     .hero::before{
       content:"";
       position:absolute;
       inset:-2px;
+      z-index:-1;
       background:
-        radial-gradient(760px 360px at 18% 20%, rgba(168,85,247,.16), transparent 60%),
-        radial-gradient(760px 380px at 86% 24%, rgba(56,189,248,.12), transparent 62%);
-      opacity:.95;
-      pointer-events:none;
+        radial-gradient(900px 420px at 14% 22%, rgba(168,85,247,.20), transparent 60%),
+        radial-gradient(900px 420px at 86% 20%, rgba(56,189,248,.16), transparent 62%);
+      filter: blur(24px) saturate(155%);
+      opacity:.9;
+      transform: translateZ(0);
     }
-    .hero > *{ position:relative; }
-
-    .profile{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-    .avatar{
-      width:56px;height:56px;border-radius:18px;
-      display:grid;place-items:center;
-      font-weight:900;
-      letter-spacing:.5px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      box-shadow: 0 18px 46px rgba(168,85,247,.18);
-      user-select:none;
-      flex:0 0 auto;
-    }
-    .name h1{ margin:0; font-size:22px; }
-    .name p{ margin:4px 0 0; font-size:13px; color: var(--muted); }
-
-    .bio{
-      margin: 12px 0 14px;
-      font-size:13.5px;
-      line-height:1.65;
-      color: var(--muted);
-      max-width: 76ch;
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background: rgba(0,0,0,.22);
     }
 
-    .pills{ display:flex; flex-wrap:wrap; gap:8px; }
-    .pill{
-      padding: 7px 10px;
-      font-size:12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.14);
-      color: var(--muted);
+    .title{
+      font-size:44px;
+      font-weight:800;
+      letter-spacing:-.02em;
+      margin:0;
+      background:linear-gradient(90deg,var(--a1),var(--a2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
+    .subtitle{margin:10px 0 0;color:var(--muted);font-size:15px;max-width:76ch;line-height:1.7}
 
-    .divider{ height:1px; background: var(--line); }
+    .heroRow{margin-top:18px;display:grid;grid-template-columns: 1.15fr .85fr;gap:18px;align-items:stretch}
 
-    /* ---- Sections ---- */
-    .section{
-      padding: 22px;
-      display:grid;
-      gap: 12px;
-    }
-
-    .titleRow{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .titleRow h2{ margin:0; font-size:14px; }
-    .titleRow p{ margin:0; font-size:12px; color: var(--muted); }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    .card{
-      padding:14px;
-      border-radius: var(--radius);
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.14);
-    }
-    .card h3{ margin:0 0 6px; font-size:13px; }
-    .card p{ margin:0; font-size:12.8px; line-height:1.6; color: var(--muted); }
-
-    .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-    .tag{
-      font-size:11.5px;
-      padding:6px 9px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.66);
-    }
-
-    .skill{ margin-top:10px; }
-    .skillTop{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      font-size:12px;
-      color: var(--muted);
-    }
-    .bar{
-      margin-top:8px;
-      height:10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.12);
-      overflow:hidden;
-    }
-    .bar > div{
-      height:100%;
-      width: var(--w, 60%);
-      background: linear-gradient(90deg, var(--a1), var(--a2));
-    }
-
-    /* ---- Links / CTA ---- */
-    .links{
-      display:grid;
-      gap:10px;
-    }
-    .link{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px;
-      border-radius: var(--radius);
+    /* ===== Fake Render (device + interactive UI) ===== */
+    .device{
       border:1px solid var(--line);
       background: rgba(0,0,0,.18);
+      border-radius: 26px;
+      padding:14px;
+      overflow:hidden;
+      position:relative;
+    }
+    .device::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(800px 420px at 20% 20%, rgba(168,85,247,.12), transparent 60%),
+        radial-gradient(800px 420px at 80% 30%, rgba(56,189,248,.10), transparent 62%);
+      opacity:1;
+      pointer-events:none;
+    }
+
+    .screen{
+      position:relative;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      min-height: 320px;
+      display:flex;
+      flex-direction:column;
+    }
+    .screenTop{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .logoMini{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.85);font-weight:700;font-size:13px}
+    .pillMini{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--muted);font-size:11.5px}
+
+    .screenBody{
+      padding:14px;
+      display:grid;
+      gap:12px;
+      flex: 1 1 auto;
+    }
+
+    .uiHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .uiHeader h3{margin:0;font-size:13.5px;letter-spacing:.01em}
+    .uiHeader p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+
+    .uiRight{display:flex;gap:8px;align-items:center;flex:0 0 auto}
+    .uiBadge{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.70);font-size:11.5px}
+
+    .tiles{display:grid;grid-template-columns: 1fr 1fr;gap:12px}
+    .tile{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      padding:12px;
+      min-height: 92px;
+    }
+    .tile strong{display:block;font-size:12.8px;margin-bottom:6px}
+    .tile span{display:block;color:var(--muted);font-size:12px;line-height:1.5}
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{
+      padding:9px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      font-size:12px;
+      cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .link:hover{
-      transform: translateY(-1px);
-      background: var(--panel2);
-      border-color: rgba(255,255,255,.20);
-    }
-    .lLeft{ display:flex; align-items:center; gap:12px; min-width:0; }
-    .icon{
-      width:34px;height:34px;border-radius:12px;
-      display:grid;place-items:center;
-      border:1px solid var(--line);
-      background: var(--panel);
-      flex:0 0 auto;
-    }
-    .lText{ min-width:0; }
-    .lText strong{
-      display:block;
-      font-size:13.5px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .lText span{
-      display:block;
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18)}
+
+    .search{
+      flex: 1 1 auto;
+      min-width: 140px;
+      padding: 9px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.86);
       font-size:12px;
-      color: var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      outline:none;
     }
-    .arrow{
-      font-size:12px;
-      color: var(--muted);
-      padding:6px 10px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
+    .search::placeholder{color: rgba(255,255,255,.45)}
+
+    .list{display:grid;gap:10px}
+    .item{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+    }
+    .item .left{min-width:0}
+    .item strong{display:block;font-size:12.8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .item span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .item .right{display:flex;gap:8px;flex:0 0 auto}
+    .pill{
+      padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
-      flex:0 0 auto;
+      color: rgba(255,255,255,.70);
+      font-size:11.5px;
     }
 
-    button.link{
-      width:100%;
-      border:none;
-      font: inherit;
-      color: inherit;
-      text-align:left;
-      cursor:pointer;
+    .toggle{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
     }
+    .toggle .tleft strong{display:block;font-size:12.8px}
+    .toggle .tleft span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
 
-    .foot{
-      padding:14px 22px;
-      border-top:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
+    .switch{position:relative;width:44px;height:26px;flex:0 0 auto}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{
+      position:absolute;inset:0;border-radius:999px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      transition: .15s ease;
+    }
+    .slider:before{
+      content:"";
+      position:absolute;left:3px;top:3px;
+      width:18px;height:18px;border-radius:999px;
+      background: linear-gradient(90deg,var(--a1),var(--a2));
+      box-shadow: 0 0 18px rgba(56,189,248,.18);
+      transition: .15s ease;
+    }
+    .switch input:checked + .slider{
+      background: rgba(56,189,248,.12);
+      border-color: rgba(56,189,248,.35);
+    }
+    .switch input:checked + .slider:before{transform: translateX(18px)}
+
+    .rangeRow{display:grid;gap:8px}
+    .rangeTop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px}
+    input[type="range"]{width:100%}
+
+    .navBar{
+      display:flex;gap:8px;flex-wrap:wrap;
+      padding:12px 14px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .navBtn{
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.72);
       font-size:12px;
-      color: var(--muted);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .navBtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06)}
+    .navBtn.active{
+      background: rgba(56,189,248,.12);
+      border-color: rgba(56,189,248,.40);
+      color: rgba(255,255,255,.92);
+      box-shadow: 0 0 0 4px rgba(56,189,248,.08);
     }
 
-    @media (max-width:720px){
-      .grid{ grid-template-columns:1fr; }
-      .topbar{ flex-direction:column; align-items:flex-start; }
+    .kbdHint{color: rgba(255,255,255,.56); font-size:11.5px; line-height:1.5}
+
+    /* ===== Sections / Cards ===== */
+    .section{padding:22px 28px;border-bottom:1px solid var(--line)}
+    .section:last-of-type{border-bottom:none}
+
+    .sectionTitle{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .sectionTitle h2{margin:0;font-size:16px}
+    .sectionTitle p{margin:0;color:var(--muted);font-size:12.5px}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .card{
+      padding:20px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.14);
+    }
+    .card p{margin:0;color:var(--muted);line-height:1.65}
+
+    /* ===== Feature list with icons ===== */
+    .features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .feature{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius: 18px;border:1px solid rgba(255,255,255,.14);background: rgba(255,255,255,.03);}
+    .ico{width:38px;height:38px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background: rgba(0,0,0,.18);display:grid;place-items:center;flex:0 0 auto;}
+    .ico svg{width:18px;height:18px;opacity:.92}
+    .fText strong{display:block;font-size:13px;margin:0 0 4px}
+    .fText span{display:block;color:var(--muted);font-size:12.5px;line-height:1.55}
+
+    /* ===== Hardware Specs ===== */
+    .specs{display:grid;grid-template-columns: 1fr 1fr;gap:12px;}
+    .spec{padding:14px;border-radius: 18px;border:1px solid rgba(255,255,255,.14);background: rgba(0,0,0,.16);}
+    .spec .k{display:block;color:rgba(255,255,255,.78);font-size:12px;margin-bottom:6px}
+    .spec .v{display:block;color:var(--muted);font-size:12.5px;line-height:1.55}
+    .hint{margin-top:10px;color:rgba(255,255,255,.58);font-size:12px;line-height:1.6}
+
+    /* ===== Roadmap ===== */
+    .roadmap{display:grid;gap:12px}
+    .step{padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.14);background: rgba(0,0,0,.16);}
+    .step strong{display:block;font-size:13px;margin-bottom:6px}
+    .step span{display:block;color:var(--muted);font-size:12.5px;line-height:1.55}
+
+    /* ===== Footer ===== */
+    footer{padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px;}
+
+    /* ===== Responsive ===== */
+    @media (max-width:900px){.heroRow{grid-template-columns:1fr;}}
+    @media (max-width:800px){
+      .grid,.features,.specs{grid-template-columns:1fr}
+      .tiles{grid-template-columns:1fr}
+      .title{font-size:34px}
+      .section{padding:20px}
     }
   </style>
 </head>
@@ -344,164 +370,195 @@
 
   <div class="wrap">
     <div class="topbar">
-      <div class="badge"><span class="dot"></span> Bewerbung • Portfolio</div>
-      <div class="nav">
-        <a href="#skills" class="chip">Skills</a>
-        <a href="#services" class="chip">Leistungen</a>
-        <a href="#projects" class="chip">Projekte</a>
-        <a href="#contact" class="chip">Kontakt</a>
-      </div>
+      <div class="badge"><span class="dot"></span> Polarus • Console Project</div>
+      <nav class="nav">
+        <a class="chip" href="#features">Features</a>
+        <a class="chip" href="#specs">Specs</a>
+        <a class="chip" href="#ui">UI Demo</a>
+        <a class="chip" href="#roadmap">Roadmap</a>
+        <a class="chip" href="#why">Warum</a>
+      </nav>
     </div>
 
     <main class="shell" id="top">
       <!-- HERO -->
       <section class="hero">
-        <div class="profile">
-          <div class="avatar" aria-hidden="true">JB</div>
-          <div class="name">
-            <h1>JokiiiBoy</h1>
-            <p>19 • Germany • Webdesign & Minecraft</p>
-          </div>
-        </div>
-
-        <p class="bio">
-          Hey — ich bin JokiiiBoy. Ich arbeite gerne mit <strong>HTML, CSS und JavaScript</strong> und baue
-          moderne, saubere Webseiten. Zusätzlich entwickle ich <strong>Minecraft-Plugins</strong> und
-          übernehme die <strong>Konfiguration/Einrichtung</strong> von Plugin-Setups auf Servern.
-          <br><br>
-          Wenn du jemanden suchst, der Design + Technik kombiniert und zuverlässig liefert: let’s go.
+        <h1 class="title">Polarus</h1>
+        <p class="subtitle">
+          Meine eigene, modulare Gaming‑Konsole: Linux‑basiert, mit eigenem Console‑Frontend
+          und Community‑Backend (Chat/Profiles/Sharing). Fokus: Performance, Erweiterbarkeit
+          und ein smoothes Spielerlebnis.
         </p>
 
-        <div class="pills">
-          <span class="pill">Modern UI</span>
-          <span class="pill">Responsive Layouts</span>
-          <span class="pill">Minecraft Plugins</span>
-          <span class="pill">Server Configs</span>
-          <span class="pill">Purple/Blue vibe</span>
+        <div class="heroRow">
+          <div class="card" style="background:rgba(0,0,0,.16)">
+            <div class="sectionTitle" style="margin-bottom:10px">
+              <h2 id="why">Warum Polarus existiert</h2>
+              <p>Vision</p>
+            </div>
+            <p>
+              Polarus ist entstanden, weil ich eine Gaming‑Plattform bauen will, die sich wie eine echte
+              Konsole anfühlt, aber offen bleibt: klare UI, schnelle Navigation, sinnvolle Online‑Features
+              und ein System, das man langfristig erweitern kann.
+            </p>
+            <p class="hint">
+              Ziel: Ein Projekt, das Hardware‑Denken, Systemarchitektur, UI/UX und Community in einem Konzept verbindet.
+            </p>
+            <p class="kbdHint"><strong>UI Demo:</strong> Klick unten im Render auf <em>Home/Games/Community/Settings</em>.
+              Optional: <kbd>1</kbd>–<kbd>4</kbd> wechselt Tabs, <kbd>/</kbd> fokussiert Suche.</p>
+          </div>
+
+          <!-- Interactive UI Demo -->
+          <div class="device" id="ui" aria-label="Polarus OS UI Demo">
+            <div class="screen" tabindex="0">
+              <div class="screenTop">
+                <div class="logoMini">
+                  <span style="width:10px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--a1),var(--a2));display:inline-block"></span>
+                  <span>Polarus OS</span>
+                </div>
+                <span class="pillMini" id="uiStatus">Interactive Demo</span>
+              </div>
+
+              <div class="screenBody" id="uiBody" aria-live="polite"></div>
+
+              <div class="navBar" aria-label="Polarus Navigation">
+                <button class="navBtn active" type="button" data-page="home">Home</button>
+                <button class="navBtn" type="button" data-page="games">Games</button>
+                <button class="navBtn" type="button" data-page="community">Community</button>
+                <button class="navBtn" type="button" data-page="settings">Settings</button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div class="divider"></div>
+      <!-- FEATURES -->
+      <section class="section" id="features">
+        <div class="sectionTitle">
+          <h2>Feature‑Liste</h2>
+          <p>Was Polarus besonders macht</p>
+        </div>
 
-      <!-- SKILLS -->
-      <section class="section" id="skills">
-        <div class="titleRow">
-          <h2>Skills</h2>
-          <p>Kurz & übersichtlich</p>
+        <div class="features">
+          <div class="feature">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 12a8 8 0 1 0 16 0a8 8 0 1 0-16 0Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fText">
+              <strong>Console‑Feeling</strong>
+              <span>Schnelle Navigation, klare Menüs, Library‑Flow wie bei echten Konsolen.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10h10M7 14h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 6h12a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="fText">
+              <strong>Community integriert</strong>
+              <span>Chat, Profile, Sharing & Updates direkt im System (Backend‑Services).</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 16l6-8 6 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 20h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fText">
+              <strong>Performance‑Mindset</strong>
+              <span>Boot‑Flow, Ressourcen‑Management, Thermals/Power‑Denken und stabile Updates.</span>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l3 7h7l-5.5 4 2.2 7L12 16l-6.7 4 2.2-7L2 9h7l3-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="fText">
+              <strong>Modular gedacht</strong>
+              <span>Erweiterbares System: Frontend, Services, Plugins/Module (Konzeptphase).</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="hint">Hinweis: Features sind im Scope des Projekts geplant/iterativ – Polarus ist aktuell in Entwicklung.</p>
+      </section>
+
+      <!-- SPECS -->
+      <section class="section" id="specs">
+        <div class="sectionTitle">
+          <h2>Hardware‑Specs</h2>
+          <p>Platzhalter (anpassbar)</p>
+        </div>
+
+        <div class="specs">
+          <div class="spec"><span class="k">CPU</span><span class="v">(Platzhalter) APU/CPU‑Choice – Fokus auf Effizienz & stabile FPS</span></div>
+          <div class="spec"><span class="k">RAM</span><span class="v">(Platzhalter) z.B. 16 GB – genug Headroom für System + Games</span></div>
+          <div class="spec"><span class="k">Storage</span><span class="v">(Platzhalter) NVMe SSD – schnelle Library & Updates</span></div>
+          <div class="spec"><span class="k">GPU</span><span class="v">(Platzhalter) iGPU/Discrete – abhängig vom Build‑Ziel</span></div>
+          <div class="spec"><span class="k">OS‑Layer</span><span class="v">Linux‑Base + Polarus Frontend + Services (Accounts/Chat/Sharing)</span></div>
+          <div class="spec"><span class="k">Input</span><span class="v">Controller‑First UI, optional KB/Maus & Touch‑Support (Konzept)</span></div>
+        </div>
+
+        <p class="hint">
+          Wenn du mir deine echten Ziel‑Specs gibst (CPU/APU, RAM, Storage, Formfaktor), trag ich sie 1:1 sauber ein.
+        </p>
+      </section>
+
+      <!-- ROADMAP -->
+      <section class="section" id="roadmap">
+        <div class="sectionTitle">
+          <h2>Roadmap</h2>
+          <p>Phasen</p>
+        </div>
+
+        <div class="roadmap">
+          <div class="step"><strong>Phase 1 – Konzept</strong><span>Architektur, Vision, Komponenten (Frontend/Backend), UX‑Ziele.</span></div>
+          <div class="step"><strong>Phase 2 – Core System</strong><span>Linux‑Basis, Boot‑Flow, Update‑Mechanik, Device‑Services.</span></div>
+          <div class="step"><strong>Phase 3 – Polarus UI</strong><span>Home, Library, Settings, Controller‑Navigation, Animationen.</span></div>
+          <div class="step"><strong>Phase 4 – Community</strong><span>Accounts, Chat, Sharing, Moderation/Permissions (Scope nach Bedarf).</span></div>
+          <div class="step"><strong>Phase 5 – Prototype</strong><span>Public Demo/Preview, Testing, Iteration, Stabilität & Performance.</span></div>
+        </div>
+      </section>
+
+      <!-- VISION -->
+      <section class="section" id="why-more">
+        <div class="sectionTitle">
+          <h2>Langfristige Vision</h2>
+          <p>Wohin es gehen soll</p>
         </div>
 
         <div class="grid">
           <div class="card">
-            <h3>Web</h3>
-            <p>Struktur, Styling, Interaktionen — clean und responsive.</p>
-
-            <div class="skill">
-              <div class="skillTop"><span>HTML</span><span>80%</span></div>
-              <div class="bar"><div style="--w:80%"></div></div>
-            </div>
-            <div class="skill">
-              <div class="skillTop"><span>CSS</span><span>75%</span></div>
-              <div class="bar"><div style="--w:75%"></div></div>
-            </div>
-            <div class="skill">
-              <div class="skillTop"><span>JavaScript</span><span>70%</span></div>
-              <div class="bar"><div style="--w:70%"></div></div>
-            </div>
+            <p>
+              Polarus soll sich anfühlen wie eine Konsole: schnell, clean, controller‑first.
+              Gleichzeitig bleibt es offen für Weiterentwicklung – ein Projekt, an dem ich wachsen kann
+              (Systemdesign, UI/UX, Backend‑Services, Game‑Workflows).
+            </p>
           </div>
-
           <div class="card">
-            <h3>Minecraft</h3>
-            <p>Plugins & Server-Setups — von Basics bis feinem Tuning.</p>
-
-            <div class="tags">
-              <span class="tag">Plugin-Configs</span>
-              <span class="tag">Permissions</span>
-              <span class="tag">Performance</span>
-              <span class="tag">Quality-of-Life</span>
-            </div>
-
-            <div class="skill">
-              <div class="skillTop"><span>Setup/Config</span><span>85%</span></div>
-              <div class="bar"><div style="--w:85%"></div></div>
-            </div>
+            <p>
+              Fokus: klare User‑Experience, stabile Updates, Community‑Features mit Sinn.
+              Keine überladene Oberfläche – sondern "smooth" und konsistent.
+            </p>
           </div>
         </div>
       </section>
 
-      <div class="divider"></div>
-
-      <!-- SERVICES -->
-      <section class="section" id="services">
-        <div class="titleRow">
-          <h2>Leistungen</h2>
-          <p>Wofür du mich einsetzen kannst</p>
-        </div>
-
-        <div class="grid">
-          <div class="card">
-            <h3>Webseiten / Landingpages</h3>
-            <p>Onepager, Bewerbungsseite, Portfolio oder kleine Projektseiten — modern, schnell, mobilfreundlich.</p>
-          </div>
-          <div class="card">
-            <h3>Minecraft Plugin-Setup (Server nicht nur Minecraft)</h3>
-            <p>Konfiguration, Anpassungen, Fehler-Suche und sauberes Setup (z.B. Permissions, Gameplay, QoL).</p>
-          </div>
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- PROJECTS -->
-      <section class="section" id="projects">
-        <div class="titleRow">
-          <h2>Projekte</h2>
-          <p>Was ich gemacht habe</p>
-        </div>
-
-        <div class="grid">
-          <div class="card">
-            <h3>Webdesign Samples</h3>
-            <p>UI-lastige Seiten, saubere Komponenten, responsive Layouts.</p>
-            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
-          </div>
-          <div class="card">
-            <h3>Minecraft Plugins</h3>
-            <p>Eigene kleine Tools + Plugin-Konfigurationen für Server.</p>
-            <div class="tags"><span class="tag">Spigot/Paper</span><span class="tag">Configs</span></div>
-          </div>
-        </div>
-      </section>
-
-      <div class="divider"></div>
-
-      <!-- CONTACT -->
-      <section class="section" id="contact">
-        <div class="titleRow">
-          <h2>Kontakt</h2>
-          <p>Schnell erreichbar</p>
-        </div>
-
-        <div class="links">
-          <a class="link" href="https://github.com/JokiiiBoy" target="_blank" rel="noopener noreferrer">
-            <div class="lLeft">
-              <div class="icon" aria-hidden="true">⌂</div>
-              <div class="lText"><strong>GitHub</strong><span>github.com/JokiiiBoy</span></div>
-            </div>
-            <div class="arrow">↗</div>
-          </a>
-
-          <button class="link" id="copyDiscord" type="button" aria-label="Discord kopieren">
-            <div class="lLeft">
-              <div class="icon" aria-hidden="true">⎘</div>
-              <div class="lText"><strong>Discord kopieren</strong><span>jokiiiiboy</span></div>
-            </div>
-            <div class="arrow" id="copyState">Copy</div>
-          </button>
-        </div>
-      </section>
-
-      <footer class="foot">
-        <span>© <span id="year"></span> JokiiiBoy</span>
+      <footer>
+        <span>© <span id="year"></span> JokiiiBoy – Polarus</span>
         <a class="chip" href="#top">Back to top ↑</a>
       </footer>
     </main>
@@ -524,41 +581,311 @@
       });
     });
 
-    // Copy helper (HTTPS + file:// fallback)
-    function copyText(text) {
-      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
-      return new Promise((resolve, reject) => {
-        try {
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          ta.style.position = "fixed";
-          ta.style.left = "-9999px";
-          ta.style.top = "-9999px";
-          document.body.appendChild(ta);
-          ta.select();
-          ta.setSelectionRange(0, ta.value.length);
-          const ok = document.execCommand("copy");
-          document.body.removeChild(ta);
-          ok ? resolve() : reject(new Error("copy blocked"));
-        } catch (err) { reject(err); }
-      });
+    // ===== Polarus UI Demo =====
+    const uiBody = document.getElementById("uiBody");
+    const uiStatus = document.getElementById("uiStatus");
+    const navBtns = Array.from(document.querySelectorAll(".navBtn"));
+
+    const state = {
+      page: "home",
+      query: "",
+      perfMode: true,
+      autoUpdates: true,
+      brightness: 70,
+      volume: 55,
+      dmDraft: "",
+    };
+
+    const games = [
+      { name: "Neon Drift", meta: "Installed • 18.2 GB" },
+      { name: "Riftlight (dev build)", meta: "Installed • Prototype" },
+      { name: "Skyforge Arena", meta: "Update available" },
+      { name: "Pixel Runner", meta: "Not installed" },
+    ];
+
+    const friends = [
+      { name: "Luna", meta: "Online • Party" },
+      { name: "Kiro", meta: "Online • In game" },
+      { name: "Mika", meta: "Away" },
+    ];
+
+    function esc(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
     }
 
-    // Copy Discord
-    const copyBtn = document.getElementById("copyDiscord");
-    const copyState = document.getElementById("copyState");
-    if (copyBtn && copyState) {
-      copyBtn.addEventListener("click", async () => {
-        try {
-          await copyText("jokiiiiboy");
-          copyState.textContent = "Copied!";
-          setTimeout(() => (copyState.textContent = "Copy"), 1200);
-        } catch {
-          copyState.textContent = "Blocked";
-          setTimeout(() => (copyState.textContent = "Copy"), 1400);
+    function setActive(page){
+      state.page = page;
+      navBtns.forEach(b => b.classList.toggle("active", b.dataset.page === page));
+      render();
+    }
+
+    function render(){
+      const page = state.page;
+      uiStatus.textContent = page === "home" ? "Interactive Demo" : page[0].toUpperCase() + page.slice(1);
+
+      if (page === "home") {
+        uiBody.innerHTML = `
+          <div class="uiHeader">
+            <div>
+              <h3>Home</h3>
+              <p>Quick actions, System-Status und Shortcuts.</p>
+            </div>
+            <div class="uiRight">
+              <span class="uiBadge">FPS: 60</span>
+              <span class="uiBadge">Wi‑Fi: OK</span>
+            </div>
+          </div>
+
+          <div class="tiles">
+            <div class="tile">
+              <strong>Resume</strong>
+              <span>Letztes Spiel: Riftlight (dev build)</span>
+            </div>
+            <div class="tile">
+              <strong>Updates</strong>
+              <span>1 Update verfügbar (Skyforge Arena)</span>
+            </div>
+            <div class="tile">
+              <strong>Community</strong>
+              <span>${friends.filter(f => f.meta.includes("Online")).length} Freunde online</span>
+            </div>
+            <div class="tile">
+              <strong>System</strong>
+              <span>Perf Mode: ${state.perfMode ? "ON" : "OFF"} • Brightness: ${state.brightness}%</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn" type="button" data-action="launch">Launch Game</button>
+            <button class="btn" type="button" data-action="optimize">Optimize</button>
+            <button class="btn" type="button" data-action="quickSettings">Quick Settings</button>
+          </div>
+          <p class="kbdHint">Tip: <kbd>1</kbd> Home • <kbd>2</kbd> Games • <kbd>3</kbd> Community • <kbd>4</kbd> Settings</p>
+        `;
+      }
+
+      if (page === "games") {
+        const q = state.query.trim().toLowerCase();
+        const filtered = games.filter(g => g.name.toLowerCase().includes(q));
+        uiBody.innerHTML = `
+          <div class="uiHeader">
+            <div>
+              <h3>Games</h3>
+              <p>Library durchsuchen und schnell starten.</p>
+            </div>
+            <div class="uiRight">
+              <span class="uiBadge">Library: ${games.length}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <input class="search" id="uiSearch" placeholder="Search games… (Taste /)" value="${esc(state.query)}" />
+            <button class="btn" type="button" data-action="install">Install</button>
+          </div>
+
+          <div class="list">
+            ${filtered.map(g => `
+              <div class="item">
+                <div class="left">
+                  <strong title="${esc(g.name)}">${esc(g.name)}</strong>
+                  <span>${esc(g.meta)}</span>
+                </div>
+                <div class="right">
+                  <span class="pill">Play</span>
+                  <span class="pill">⋯</span>
+                </div>
+              </div>
+            `).join("") || `<div class="item"><div class="left"><strong>Keine Treffer</strong><span>Versuch einen anderen Suchbegriff.</span></div></div>`}
+          </div>
+          <p class="kbdHint">Tip: Drück <kbd>/</kbd> für Search-Fokus.</p>
+        `;
+      }
+
+      if (page === "community") {
+        uiBody.innerHTML = `
+          <div class="uiHeader">
+            <div>
+              <h3>Community</h3>
+              <p>Chat, Profile und Party-Features (Demo).</p>
+            </div>
+            <div class="uiRight">
+              <span class="uiBadge">Online: ${friends.filter(f => f.meta.includes("Online")).length}</span>
+            </div>
+          </div>
+
+          <div class="list">
+            ${friends.map(f => `
+              <div class="item">
+                <div class="left">
+                  <strong>${esc(f.name)}</strong>
+                  <span>${esc(f.meta)}</span>
+                </div>
+                <div class="right">
+                  <span class="pill">DM</span>
+                  <span class="pill">Invite</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="tile" style="min-height:auto">
+            <strong>Quick DM</strong>
+            <span>Schreib eine Demo-Nachricht.</span>
+            <div style="margin-top:10px;display:grid;gap:10px">
+              <input class="search" id="dmInput" placeholder="Type message…" value="${esc(state.dmDraft)}" />
+              <div class="row">
+                <button class="btn" type="button" data-action="sendDm">Send</button>
+                <span class="kbdHint" id="dmStatus"></span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (page === "settings") {
+        uiBody.innerHTML = `
+          <div class="uiHeader">
+            <div>
+              <h3>Settings</h3>
+              <p>Controller-first Settings (Demo).</p>
+            </div>
+            <div class="uiRight">
+              <span class="uiBadge">Profile: JokiiiBoy</span>
+            </div>
+          </div>
+
+          <div class="toggle">
+            <div class="tleft">
+              <strong>Performance Mode</strong>
+              <span>Mehr Leistung, höhere Power-Targets.</span>
+            </div>
+            <label class="switch" aria-label="Performance Mode">
+              <input id="perfToggle" type="checkbox" ${state.perfMode ? "checked" : ""} />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle">
+            <div class="tleft">
+              <strong>Auto Updates</strong>
+              <span>Updates nachts, wenn die Konsole idle ist.</span>
+            </div>
+            <label class="switch" aria-label="Auto Updates">
+              <input id="updatesToggle" type="checkbox" ${state.autoUpdates ? "checked" : ""} />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="tile" style="min-height:auto">
+            <strong>Display</strong>
+            <div class="rangeRow" style="margin-top:10px">
+              <div class="rangeTop"><span>Brightness</span><span id="bVal">${state.brightness}%</span></div>
+              <input id="bRange" type="range" min="0" max="100" value="${state.brightness}" />
+            </div>
+          </div>
+
+          <div class="tile" style="min-height:auto">
+            <strong>Audio</strong>
+            <div class="rangeRow" style="margin-top:10px">
+              <div class="rangeTop"><span>Volume</span><span id="vVal">${state.volume}%</span></div>
+              <input id="vRange" type="range" min="0" max="100" value="${state.volume}" />
+            </div>
+          </div>
+        `;
+      }
+
+      // Wire up per-page events
+      wire();
+    }
+
+    function wire(){
+      // Home actions
+      uiBody.querySelectorAll('[data-action="launch"]').forEach(btn => btn.addEventListener('click', () => toast("Launching… (demo)")));
+      uiBody.querySelectorAll('[data-action="optimize"]').forEach(btn => btn.addEventListener('click', () => toast("Optimized settings (demo)")));
+      uiBody.querySelectorAll('[data-action="quickSettings"]').forEach(btn => btn.addEventListener('click', () => setActive('settings')));
+
+      // Games search
+      const search = uiBody.querySelector('#uiSearch');
+      if (search){
+        search.addEventListener('input', (e) => { state.query = e.target.value; render(); });
+        // keep focus if typing
+        search.focus({ preventScroll:true });
+        search.setSelectionRange(search.value.length, search.value.length);
+      }
+      uiBody.querySelectorAll('[data-action="install"]').forEach(btn => btn.addEventListener('click', () => toast("Install flow (demo)")));
+
+      // Community DM
+      const dmInput = uiBody.querySelector('#dmInput');
+      if (dmInput){
+        dmInput.addEventListener('input', (e) => { state.dmDraft = e.target.value; });
+      }
+      uiBody.querySelectorAll('[data-action="sendDm"]').forEach(btn => btn.addEventListener('click', () => {
+        const status = uiBody.querySelector('#dmStatus');
+        if (status){ status.textContent = state.dmDraft.trim() ? "Sent ✓ (demo)" : "Type a message"; setTimeout(()=>status.textContent="", 1200); }
+        state.dmDraft = "";
+        render();
+      }));
+
+      // Settings toggles/ranges
+      const perfToggle = uiBody.querySelector('#perfToggle');
+      if (perfToggle){
+        perfToggle.addEventListener('change', (e) => { state.perfMode = e.target.checked; toast(`Performance ${state.perfMode ? 'ON' : 'OFF'}`); render(); });
+      }
+      const updatesToggle = uiBody.querySelector('#updatesToggle');
+      if (updatesToggle){
+        updatesToggle.addEventListener('change', (e) => { state.autoUpdates = e.target.checked; toast(`Auto Updates ${state.autoUpdates ? 'ON' : 'OFF'}`); });
+      }
+      const bRange = uiBody.querySelector('#bRange');
+      if (bRange){
+        bRange.addEventListener('input', (e) => { state.brightness = Number(e.target.value); const bVal = uiBody.querySelector('#bVal'); if (bVal) bVal.textContent = `${state.brightness}%`; });
+      }
+      const vRange = uiBody.querySelector('#vRange');
+      if (vRange){
+        vRange.addEventListener('input', (e) => { state.volume = Number(e.target.value); const vVal = uiBody.querySelector('#vVal'); if (vVal) vVal.textContent = `${state.volume}%`; });
+      }
+    }
+
+    // Toast inside status pill
+    let toastTimer = null;
+    function toast(msg){
+      uiStatus.textContent = msg;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        uiStatus.textContent = state.page === 'home' ? 'Interactive Demo' : state.page[0].toUpperCase()+state.page.slice(1);
+      }, 1200);
+    }
+
+    // Nav click
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => setActive(btn.dataset.page));
+    });
+
+    // Keyboard shortcuts
+    const screen = document.querySelector('.screen');
+    if (screen){
+      screen.addEventListener('keydown', (e) => {
+        const k = e.key;
+        if (k === '1') return setActive('home');
+        if (k === '2') return setActive('games');
+        if (k === '3') return setActive('community');
+        if (k === '4') return setActive('settings');
+        if (k === '/') {
+          e.preventDefault();
+          setActive('games');
+          setTimeout(() => {
+            const s = uiBody.querySelector('#uiSearch');
+            if (s) s.focus();
+          }, 0);
         }
       });
     }
+
+    // Initial render
+    render();
   </script>
 </body>
 </html>
